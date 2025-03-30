@@ -1,3 +1,4 @@
+
 'use client';
 
 import { motion } from 'framer-motion';
@@ -31,7 +32,6 @@ const transitions = {
 };
 
 export function HeroSection({ scrollY }: HeroSectionProps) {
-<<<<<<< HEAD
   // Get scroll value depending on the type passed
   const getScrollValue = () => {
     if (typeof scrollY === 'number') {
@@ -50,16 +50,6 @@ export function HeroSection({ scrollY }: HeroSectionProps) {
     const scrollValue = getScrollValue();
     return Math.max(0.9, 1 - (scrollValue / 200) * 0.1);
   };
-=======
-  // Transform values for scroll effects
-  const opacity = useTransform(scrollY, [0, 200], [1, 0], {
-    ease: [0.33, 1, 0.68, 1]
-  });
-  
-  const scale = useTransform(scrollY, [0, 200], [1, 0.9], {
-    ease: [0.33, 1, 0.68, 1]
-  });
->>>>>>> b603b3d7bcfea45d0ff809368faa0154a02447f6
   
   // Smooth scroll handlers
   const handleScrollToProjects = () => {
@@ -100,7 +90,6 @@ export function HeroSection({ scrollY }: HeroSectionProps) {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-<<<<<<< HEAD
           transition={{ duration: 0.5 }}
           className="text-center max-w-3xl mx-auto"
         >
@@ -110,13 +99,6 @@ export function HeroSection({ scrollY }: HeroSectionProps) {
               scale: calculateScale(), 
               willChange: "transform, opacity" 
             }}
-=======
-          transition={{ duration: 0.5, ease: [0.33, 1, 0.68, 1] }}
-          className="text-center max-w-3xl mx-auto"
-        >
-          <motion.div 
-            style={{ opacity, scale, willChange: "transform, opacity" }}
->>>>>>> b603b3d7bcfea45d0ff809368faa0154a02447f6
             className="mb-6"
           >
             <h1 className="text-5xl md:text-7xl font-bold mb-2">
@@ -129,11 +111,7 @@ export function HeroSection({ scrollY }: HeroSectionProps) {
           <motion.p 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-<<<<<<< HEAD
             transition={{ delay: 0.3, duration: 0.5 }}
-=======
-            transition={{ delay: 0.3, duration: 0.5, ease: [0.33, 1, 0.68, 1] }}
->>>>>>> b603b3d7bcfea45d0ff809368faa0154a02447f6
             className="text-xl text-zinc-200 mb-10 leading-relaxed text-readability-shadow"
           >
             Creating exceptional digital experiences with elegance and precision.
@@ -206,4 +184,4 @@ export function HeroSection({ scrollY }: HeroSectionProps) {
       </motion.div>
     </section>
   );
-} 
+}
