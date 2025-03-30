@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_OPTIONS='--no-warnings --trace-warnings' next dev",
-    "build": "cross-env NODE_OPTIONS='--no-warnings --trace-warnings' next build",
-    "start": "cross-env NODE_OPTIONS='--no-warnings --trace-warnings' next start",
+    "dev": "cross-env NODE_OPTIONS=\"--no-warnings\" next dev",
+    "build": "cross-env NODE_OPTIONS=\"--no-warnings\" next build",
+    "start": "cross-env NODE_OPTIONS=\"--no-warnings\" next start",
     "lint": "next lint"
   },
   "keywords": [],
