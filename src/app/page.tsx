@@ -1,10 +1,6 @@
 'use client';
 
-<<<<<<< HEAD
-import { LazyMotion, domAnimation } from 'framer-motion';
-=======
 import { useScroll, LazyMotion, domAnimation } from 'framer-motion';
->>>>>>> b603b3d7bcfea45d0ff809368faa0154a02447f6
 import dynamic from 'next/dynamic';
 import { Suspense, useRef, useState, useEffect } from 'react';
 
