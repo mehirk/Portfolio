@@ -52,7 +52,7 @@ const FormField = memo(({
     required: true,
     value,
     onChange,
-    'aria-invalid': error ? 'true' : 'false',
+    'aria-invalid': error ? true : false,
     'aria-describedby': error ? `${id}-error` : undefined,
     suppressHydrationWarning: true
   };
@@ -82,6 +82,8 @@ const FormField = memo(({
   );
 });
 
+FormField.displayName = 'FormField';
+
 // Success message component
 const SuccessMessage = memo(() => (
   <motion.div
@@ -100,6 +102,19 @@ const SuccessMessage = memo(() => (
   </motion.div>
 ));
 
+SuccessMessage.displayName = 'SuccessMessage';
+
+// Form loading placeholder
+const FormLoadingPlaceholder = () => (
+  <div className="h-[400px] flex items-center justify-center">
+    <div className="animate-pulse flex flex-col items-center">
+      <div className="h-10 bg-zinc-800/50 w-1/2 mb-4 rounded"></div>
+      <div className="h-8 bg-zinc-800/50 w-3/4 mb-3 rounded"></div>
+      <div className="h-8 bg-zinc-800/50 w-2/3 rounded"></div>
+    </div>
+  </div>
+);
+
 export function ContactSection() {
   const initialFormState = { name: '', email: '', subject: '', message: '' };
   const [formState, setFormState] = useState<FormInput>(initialFormState);
@@ -108,9 +123,13 @@ export function ContactSection() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [isClient, setIsClient] = useState(false);
   
-  // Use useEffect to ensure we only run client-side code after hydration
   useEffect(() => {
-    setIsClient(true);
+    // Delay setting isClient to true to avoid hydration mismatch
+    const timer = setTimeout(() => {
+      setIsClient(true);
+    }, 10);
+    
+    return () => clearTimeout(timer);
   }, []);
   
   const validateForm = (): boolean => {
@@ -137,7 +156,6 @@ export function ContactSection() {
     const { name, value } = e.target;
     setFormState(prev => ({ ...prev, [name]: value }));
     
-    // Clear error when user types
     if (errors[name as keyof FormInput]) {
       setErrors(prev => ({ ...prev, [name]: undefined }));
     }
@@ -149,14 +167,12 @@ export function ContactSection() {
     
     setIsSubmitting(true);
     
-    // Simulated API call
+    // Simulated form submission
     setTimeout(() => {
-      console.log('Form submitted:', formState);
       setFormState(initialFormState);
       setIsSubmitting(false);
       setIsSuccess(true);
       
-      // Hide success message after 5 seconds
       setTimeout(() => setIsSuccess(false), 5000);
     }, 1000);
   };
@@ -165,13 +181,7 @@ export function ContactSection() {
     { id: 'name' as const, label: 'Name', placeholder: 'Your name', delay: 0.1 },
     { id: 'email' as const, label: 'Email', type: 'email', placeholder: 'Your email', delay: 0.2 },
     { id: 'subject' as const, label: 'Subject', placeholder: 'Subject', delay: 0.3 },
-    { 
-      id: 'message' as const, 
-      label: 'Message', 
-      placeholder: 'Your message', 
-      isTextarea: true, 
-      delay: 0.4 
-    }
+    { id: 'message' as const, label: 'Message', placeholder: 'Your message', isTextarea: true, delay: 0.4 }
   ];
 
   return (
@@ -250,13 +260,7 @@ export function ContactSection() {
                   </motion.div>
                 </form>
               ) : (
-                <div className="h-[400px] flex items-center justify-center">
-                  <div className="animate-pulse flex flex-col items-center">
-                    <div className="h-10 bg-zinc-800/50 w-1/2 mb-4 rounded"></div>
-                    <div className="h-8 bg-zinc-800/50 w-3/4 mb-3 rounded"></div>
-                    <div className="h-8 bg-zinc-800/50 w-2/3 rounded"></div>
-                  </div>
-                </div>
+                <FormLoadingPlaceholder />
               )}
             </motion.div>
           </div>

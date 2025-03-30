@@ -1,10 +1,10 @@
 'use client';
 
-import { useScroll, useTransform, LazyMotion, domAnimation } from 'framer-motion';
+import { LazyMotion, domAnimation } from 'framer-motion';
 import dynamic from 'next/dynamic';
-import { Suspense, useRef } from 'react';
+import { Suspense, useRef, useState, useEffect } from 'react';
 
-// Dynamically import components to avoid hydration issues
+// Dynamically import components with optimized loading
 const Sidebar = dynamic(() => import('@/components/Sidebar'), { ssr: false });
 const Footer = dynamic(() => import('@/components/Footer'), { ssr: false });
 const HeroSection = dynamic(() => import('@/components/sections/HeroSection').then(mod => ({ default: mod.HeroSection })), { ssr: false });
@@ -25,8 +25,44 @@ const LoadingSkeleton = () => (
 
 // Main Page Component
 export default function Home() {
-  const { scrollY } = useScroll();
+  const [scrollY, setScrollY] = useState(0);
+  const [isMounted, setIsMounted] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  
+  // Set up scroll handler after component mounts
+  useEffect(() => {
+    setIsMounted(true);
+    
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+  
+  // Create a simple MotionValue-like object
+  const scrollMotionValue = {
+    get: () => scrollY,
+    onChange: () => undefined  // Simple mock to match the interface
+  };
+  
+  // Avoid hydration issues by only rendering motion components on client
+  if (!isMounted) {
+    return (
+      <div className="flex min-h-screen">
+        <div className="w-72 bg-zinc-900"></div>
+        <div className="flex-1 pl-72 relative">
+          <main className="min-h-screen bg-deep-dark">
+            <LoadingSkeleton />
+          </main>
+        </div>
+      </div>
+    );
+  }
   
   return (
     <LazyMotion features={domAnimation}>
@@ -41,7 +77,7 @@ export default function Home() {
             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/40 pointer-events-none"></div>
             <div className="relative z-10">
               <Suspense fallback={<LoadingSkeleton />}>
-                <HeroSection scrollY={scrollY} />
+                <HeroSection scrollY={scrollMotionValue} />
                 <AboutSection />
                 <SkillsSection />
                 <ProjectsSection />
