@@ -1,10 +1,10 @@
 'use client';
 
-import { useScroll, useTransform, LazyMotion, domAnimation } from 'framer-motion';
+import { useScroll, LazyMotion, domAnimation } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import { Suspense, useRef } from 'react';
 
-// Dynamically import components to avoid hydration issues
+// Dynamically import components with optimized loading
 const Sidebar = dynamic(() => import('@/components/Sidebar'), { ssr: false });
 const Footer = dynamic(() => import('@/components/Footer'), { ssr: false });
 const HeroSection = dynamic(() => import('@/components/sections/HeroSection').then(mod => ({ default: mod.HeroSection })), { ssr: false });
