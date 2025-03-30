@@ -32,13 +32,17 @@ const transitions = {
 
 export function HeroSection({ scrollY }: HeroSectionProps) {
   // Transform values for scroll effects
-  const opacity = useTransform(scrollY, [0, 200], [1, 0], {
-    ease: [0.33, 1, 0.68, 1]
-  });
+  const opacity = useTransform(
+    scrollY, 
+    [0, 200], 
+    [1, 0]
+  );
   
-  const scale = useTransform(scrollY, [0, 200], [1, 0.9], {
-    ease: [0.33, 1, 0.68, 1]
-  });
+  const scale = useTransform(
+    scrollY, 
+    [0, 200], 
+    [1, 0.9]
+  );
   
   // Smooth scroll handlers
   const handleScrollToProjects = () => {
