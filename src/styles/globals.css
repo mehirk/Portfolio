@@ -6,12 +6,28 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 250, 250, 250;
   --background-end-rgb: 255, 255, 255;
+  
+  /* Toned down color palette */
+  --accent-purple: 200, 85, 255;
+  --accent-blue: 37, 99, 235;
+  --accent-cyan: 8, 145, 178;
+  --accent-teal: 13, 148, 136;
+  --accent-green: 5, 150, 105;
+  --glow-strength: 0.5;
 }
 
 .dark {
   --foreground-rgb: 255, 255, 255;
   --background-start-rgb: 10, 10, 10;
   --background-end-rgb: 20, 20, 20;
+  
+  /* Toned down color palette for dark mode */
+  --accent-purple: 168, 132, 252;
+  --accent-blue: 59, 130, 246;
+  --accent-cyan: 34, 211, 238;
+  --accent-teal: 45, 212, 191;
+  --accent-green: 16, 185, 129;
+  --glow-strength: 0.35;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -24,6 +40,30 @@
 
 body {
   transition: background 0.3s ease-in-out;
+}
+
+/* Animation keyframes */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes pulse-glow {
+  0% { box-shadow: 0 0 5px rgba(var(--accent-purple), 0.05); }
+  50% { box-shadow: 0 0 15px rgba(var(--accent-purple), var(--glow-strength)); }
+  100% { box-shadow: 0 0 5px rgba(var(--accent-purple), 0.05); }
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -100% 0; }
+  100% { background-position: 200% 0; }
 }
 
 @layer components {
@@ -61,6 +101,88 @@ body {
 
   .glass-effect {
     @apply bg-black/60 backdrop-blur-lg;
+  }
+  
+  /* New utility classes with toned down opacity and intensity */
+  .animated-gradient-bg {
+    @apply bg-gradient-to-r;
+    background-size: 200% 200%;
+    animation: gradient-shift 15s ease infinite;
+  }
+  
+  .glow-effect {
+    animation: pulse-glow 3s ease-in-out infinite;
+  }
+  
+  .float-animation {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .color-shift-purple {
+    @apply from-purple-600/80 via-purple-500/80 to-violet-600/80;
+  }
+  
+  .color-shift-blue {
+    @apply from-blue-600/80 via-indigo-500/80 to-blue-500/80;
+  }
+  
+  .color-shift-cyan {
+    @apply from-cyan-500/80 via-sky-400/80 to-cyan-600/80;
+  }
+  
+  .color-shift-multi {
+    @apply from-indigo-600/70 via-blue-500/70 to-cyan-400/70;
+  }
+  
+  .glass-card {
+    @apply backdrop-blur-md bg-white/5 dark:bg-black/30 border border-white/10 dark:border-white/5 rounded-xl;
+  }
+  
+  .text-glow {
+    text-shadow: 0 0 8px rgba(var(--accent-purple), calc(var(--glow-strength) * 0.7));
+  }
+  
+  .border-glow {
+    @apply border border-transparent;
+    box-shadow: 0 0 10px rgba(var(--accent-purple), var(--glow-strength));
+  }
+  
+  .shimmer-effect {
+    background: linear-gradient(90deg, 
+      rgba(255,255,255,0) 0%, 
+      rgba(255,255,255,0.1) 50%, 
+      rgba(255,255,255,0) 100%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+  
+  .star-bg {
+    background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+
+  /* New sleek/glossy finishes */
+  .glossy-effect {
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+    border-top: 1px solid rgba(255,255,255,0.1);
+    border-left: 1px solid rgba(255,255,255,0.08);
+    border-right: 1px solid rgba(0,0,0,0.05);
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+  }
+
+  .sleek-shadow {
+    box-shadow: 
+      0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -2px rgba(0, 0, 0, 0.05),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  }
+
+  .text-readability-shadow {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  }
+
+  .bg-deep-dark {
+    @apply bg-zinc-900/90;
   }
 }
 

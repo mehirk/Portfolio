@@ -19,14 +19,19 @@ export default function Home() {
     <div className="flex min-h-screen">
       <Sidebar />
       <div className="flex-1 pl-72 relative">
-        <main className="min-h-screen dark-gradient">
-          <HeroSection scrollY={scrollY} />
-          <AboutSection />
-          <SkillsSection />
-          <ProjectsSection />
-          <TestimonialsSection />
-          <ContactSection />
-          <Footer />
+        <main className="min-h-screen bg-deep-dark">
+          <div className="absolute inset-0 animated-gradient-bg color-shift-multi opacity-40"></div>
+          <div className="absolute inset-0 star-bg opacity-30 pointer-events-none"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/40 pointer-events-none"></div>
+          <div className="relative z-10">
+            <HeroSection scrollY={scrollY} />
+            <AboutSection />
+            <SkillsSection />
+            <ProjectsSection />
+            <TestimonialsSection />
+            <ContactSection />
+            <Footer />
+          </div>
         </main>
       </div>
     </div>
