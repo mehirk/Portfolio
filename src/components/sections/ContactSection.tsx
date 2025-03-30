@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { FormEvent, useState, memo } from 'react';
+import { FormEvent, useState, memo, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -53,7 +53,8 @@ const FormField = memo(({
     value,
     onChange,
     'aria-invalid': error ? 'true' : 'false',
-    'aria-describedby': error ? `${id}-error` : undefined
+    'aria-describedby': error ? `${id}-error` : undefined,
+    suppressHydrationWarning: true
   };
   
   return (
@@ -105,6 +106,12 @@ export function ContactSection() {
   const [errors, setErrors] = useState<Partial<FormInput>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+  
+  // Use useEffect to ensure we only run client-side code after hydration
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
   
   const validateForm = (): boolean => {
     const validations = {
@@ -187,8 +194,8 @@ export function ContactSection() {
             >
               {isSuccess ? (
                 <SuccessMessage />
-              ) : (
-                <form className="space-y-6" onSubmit={handleSubmit}>
+              ) : isClient ? (
+                <form className="space-y-6" onSubmit={handleSubmit} suppressHydrationWarning>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {formFields.slice(0, 2).map(field => (
                       <FormField
@@ -220,6 +227,7 @@ export function ContactSection() {
                       type="submit" 
                       className="w-full bg-zinc-800 hover:bg-zinc-700 text-white relative z-10"
                       disabled={isSubmitting}
+                      suppressHydrationWarning
                     >
                       {isSubmitting ? (
                         <span className="flex items-center">
@@ -241,6 +249,14 @@ export function ContactSection() {
                     />
                   </motion.div>
                 </form>
+              ) : (
+                <div className="h-[400px] flex items-center justify-center">
+                  <div className="animate-pulse flex flex-col items-center">
+                    <div className="h-10 bg-zinc-800/50 w-1/2 mb-4 rounded"></div>
+                    <div className="h-8 bg-zinc-800/50 w-3/4 mb-3 rounded"></div>
+                    <div className="h-8 bg-zinc-800/50 w-2/3 rounded"></div>
+                  </div>
+                </div>
               )}
             </motion.div>
           </div>
