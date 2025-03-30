@@ -52,7 +52,7 @@ const FormField = memo(({
     required: true,
     value,
     onChange,
-    'aria-invalid': error ? 'true' : 'false',
+    'aria-invalid': error ? true : false,
     'aria-describedby': error ? `${id}-error` : undefined,
     suppressHydrationWarning: true
   };
@@ -124,7 +124,12 @@ export function ContactSection() {
   const [isClient, setIsClient] = useState(false);
   
   useEffect(() => {
-    setIsClient(true);
+    // Delay setting isClient to true to avoid hydration mismatch
+    const timer = setTimeout(() => {
+      setIsClient(true);
+    }, 10);
+    
+    return () => clearTimeout(timer);
   }, []);
   
   const validateForm = (): boolean => {
