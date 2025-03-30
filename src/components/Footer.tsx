@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { Github, Linkedin, Mail, Twitter } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -22,19 +23,19 @@ export default function Footer() {
             
             {/* Social Links */}
             <div className="flex space-x-4 mt-4">
-              <Button variant="ghost" size="icon" className="rounded-full h-10 w-10 hover:bg-zinc-800/50">
+              <Button variant="ghost" size="icon" className="h-9 w-9 rounded-full hover:bg-zinc-800/50">
                 <Github className="h-5 w-5 text-zinc-200 hover:text-white" />
                 <span className="sr-only">GitHub</span>
               </Button>
-              <Button variant="ghost" size="icon" className="rounded-full h-10 w-10 hover:bg-zinc-800/50">
+              <Button variant="ghost" size="icon" className="h-9 w-9 rounded-full hover:bg-zinc-800/50">
                 <Linkedin className="h-5 w-5 text-zinc-200 hover:text-white" />
                 <span className="sr-only">LinkedIn</span>
               </Button>
-              <Button variant="ghost" size="icon" className="rounded-full h-10 w-10 hover:bg-zinc-800/50">
+              <Button variant="ghost" size="icon" className="h-9 w-9 rounded-full hover:bg-zinc-800/50">
                 <Twitter className="h-5 w-5 text-zinc-200 hover:text-white" />
                 <span className="sr-only">Twitter</span>
               </Button>
-              <Button variant="ghost" size="icon" className="rounded-full h-10 w-10 hover:bg-zinc-800/50">
+              <Button variant="ghost" size="icon" className="h-9 w-9 rounded-full hover:bg-zinc-800/50">
                 <Mail className="h-5 w-5 text-zinc-200 hover:text-white" />
                 <span className="sr-only">Email</span>
               </Button>
@@ -44,38 +45,26 @@ export default function Footer() {
           {/* Quick Links */}
           <div className="flex flex-col space-y-4">
             <h3 className="text-lg font-semibold text-white">Navigation</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link href="#home" className="text-zinc-200 hover:text-white transition-colors">
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link href="#about" className="text-zinc-200 hover:text-white transition-colors">
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link href="#skills" className="text-zinc-200 hover:text-white transition-colors">
-                  Skills
-                </Link>
-              </li>
-              <li>
-                <Link href="#projects" className="text-zinc-200 hover:text-white transition-colors">
-                  Projects
-                </Link>
-              </li>
-              <li>
-                <Link href="#testimonials" className="text-zinc-200 hover:text-white transition-colors">
-                  Testimonials
-                </Link>
-              </li>
-              <li>
-                <Link href="#contact" className="text-zinc-200 hover:text-white transition-colors">
-                  Contact
-                </Link>
-              </li>
-            </ul>
+            <nav className="flex flex-col space-y-2">
+              <Button variant="link" asChild className="justify-start p-0 h-auto text-zinc-200 hover:text-white">
+                <Link href="#home">Home</Link>
+              </Button>
+              <Button variant="link" asChild className="justify-start p-0 h-auto text-zinc-200 hover:text-white">
+                <Link href="#about">About</Link>
+              </Button>
+              <Button variant="link" asChild className="justify-start p-0 h-auto text-zinc-200 hover:text-white">
+                <Link href="#skills">Skills</Link>
+              </Button>
+              <Button variant="link" asChild className="justify-start p-0 h-auto text-zinc-200 hover:text-white">
+                <Link href="#projects">Projects</Link>
+              </Button>
+              <Button variant="link" asChild className="justify-start p-0 h-auto text-zinc-200 hover:text-white">
+                <Link href="#testimonials">Testimonials</Link>
+              </Button>
+              <Button variant="link" asChild className="justify-start p-0 h-auto text-zinc-200 hover:text-white">
+                <Link href="#contact">Contact</Link>
+              </Button>
+            </nav>
           </div>
           
           {/* Contact Information */}
@@ -83,18 +72,17 @@ export default function Footer() {
             <h3 className="text-lg font-semibold text-white">Contact</h3>
             <address className="not-italic text-zinc-200 space-y-2">
               <p>India</p>
-              <p>
-                <a href="mailto:contact@mehir.dev" className="hover:text-white transition-colors">
-                  contact@mehir.dev
-                </a>
-              </p>
+              <Button variant="link" asChild className="justify-start p-0 h-auto text-zinc-200 hover:text-white">
+                <a href="mailto:contact@mehir.dev">contact@mehir.dev</a>
+              </Button>
             </address>
           </div>
         </div>
         
         {/* Copyright */}
-        <div className="mt-12 pt-6 border-t border-zinc-800/50 text-center">
-          <p className="text-zinc-300 text-sm">
+        <div className="mt-12">
+          <Separator className="bg-zinc-800/50 mb-6" />
+          <p className="text-zinc-300 text-sm text-center">
             &copy; {currentYear} Mehir.dev. All rights reserved.
           </p>
         </div>

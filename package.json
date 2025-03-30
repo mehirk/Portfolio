@@ -14,7 +14,9 @@
   "description": "Mehir's professional portfolio website",
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.6",
+    "@radix-ui/react-label": "^2.1.2",
     "@radix-ui/react-navigation-menu": "^1.2.5",
+    "@radix-ui/react-separator": "^1.1.2",
     "@radix-ui/react-slot": "^1.1.2",
     "autoprefixer": "^10.4.17",
     "class-variance-authority": "^0.7.1",

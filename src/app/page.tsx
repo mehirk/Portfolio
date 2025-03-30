@@ -1,274 +1,275 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Navbar from '@/components/Navbar';
+import Sidebar from '@/components/Sidebar';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
 import { Code, Layers, Monitor, Server } from 'lucide-react';
 
 export default function Home() {
   return (
-    <>
-      <Navbar />
-      <main className="min-h-screen dark-gradient">
-        {/* Hero Section */}
-        <section id="home" className="relative h-screen flex flex-col items-center justify-center">
-          {/* Subtle background effects */}
-          <div className="absolute inset-0 overflow-hidden opacity-10">
-            <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-white/5 rounded-full filter blur-3xl"></div>
-            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-white/5 rounded-full filter blur-3xl"></div>
-          </div>
-          
-          <div className="container px-4 z-10">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-center max-w-3xl mx-auto"
+    <div className="flex min-h-screen">
+      <Sidebar />
+      <div className="flex-1 ml-64">
+        <main className="min-h-screen dark-gradient">
+          {/* Hero Section */}
+          <section id="home" className="relative h-screen flex flex-col items-center justify-center">
+            {/* Subtle background effects */}
+            <div className="absolute inset-0 overflow-hidden opacity-10">
+              <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-white/5 rounded-full filter blur-3xl"></div>
+              <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-white/5 rounded-full filter blur-3xl"></div>
+            </div>
+            
+            <div className="container px-4 z-10">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="text-center max-w-3xl mx-auto"
+              >
+                <h1 className="text-5xl md:text-7xl font-bold dark-text-gradient mb-6">
+                  Mehir Portfolio
+                </h1>
+                <p className="text-xl text-zinc-200 mb-10 leading-relaxed">
+                  Creating exceptional digital experiences with elegance and precision.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Button 
+                    size="lg" 
+                    className="bg-zinc-800 hover:bg-zinc-700 text-white"
+                    onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+                  >
+                    View Projects
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="lg" 
+                    className="text-white border-zinc-600 hover:bg-zinc-800/50"
+                    onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                  >
+                    Contact Me
+                  </Button>
+                </div>
+              </motion.div>
+            </div>
+            
+            {/* Scroll indicator */}
+            <motion.div 
+              className="absolute bottom-8 left-1/2 -translate-x-1/2"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.7, y: [0, 10, 0] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
             >
-              <h1 className="text-5xl md:text-7xl font-bold dark-text-gradient mb-6">
-                Mehir Portfolio
-              </h1>
-              <p className="text-xl text-zinc-200 mb-10 leading-relaxed">
-                Creating exceptional digital experiences with elegance and precision.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button 
-                  size="lg" 
-                  className="bg-zinc-800 hover:bg-zinc-700 text-white"
-                  onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
-                >
-                  View Projects
-                </Button>
-                <Button 
-                  variant="outline" 
-                  size="lg" 
-                  className="text-white border-zinc-600 hover:bg-zinc-800/50"
-                  onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-                >
-                  Contact Me
-                </Button>
+              <div className="h-14 w-8 rounded-full border-2 border-zinc-500 flex justify-center pt-2 cursor-pointer">
+                <div className="h-2 w-1 rounded-full bg-zinc-300 animate-bounce"></div>
               </div>
             </motion.div>
-          </div>
-          
-          {/* Scroll indicator */}
-          <motion.div 
-            className="absolute bottom-8 left-1/2 -translate-x-1/2"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.7, y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
-          >
-            <div className="h-14 w-8 rounded-full border-2 border-zinc-500 flex justify-center pt-2 cursor-pointer">
-              <div className="h-2 w-1 rounded-full bg-zinc-300 animate-bounce"></div>
-            </div>
-          </motion.div>
-        </section>
+          </section>
 
-        {/* About Section */}
-        <section id="about" className="py-20 md:py-32">
-          <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="max-w-4xl mx-auto"
-            >
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white text-center">About Me</h2>
-              <div className="bg-zinc-900/50 border border-zinc-800 rounded-lg p-8 backdrop-blur-sm">
-                <div className="flex flex-col md:flex-row gap-8 items-center">
-                  <div className="w-40 h-40 rounded-full overflow-hidden bg-zinc-800 flex-shrink-0">
-                    {/* Replace with your profile image */}
-                    <div className="w-full h-full bg-gradient-to-br from-zinc-700 to-zinc-900"></div>
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-xl font-semibold mb-3 text-white">Mehir Developer</h3>
-                    <p className="text-zinc-200 mb-4">
-                      I'm a passionate full-stack developer with expertise in modern web technologies. With a strong foundation in both frontend and backend development, I create seamless digital experiences that combine elegant design with robust functionality.
-                    </p>
-                    <p className="text-zinc-200">
-                      My journey in software development began 5 years ago, and since then, I've worked on a variety of projects ranging from e-commerce platforms to complex web applications. I'm constantly exploring new technologies and approaches to deliver the best solutions for my clients.
-                    </p>
+          {/* About Section */}
+          <section id="about" className="py-20 md:py-32">
+            <div className="container mx-auto px-4">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+                className="max-w-4xl mx-auto"
+              >
+                <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white text-center">About Me</h2>
+                <div className="bg-zinc-900/50 border border-zinc-800 rounded-lg p-8 backdrop-blur-sm">
+                  <div className="flex flex-col md:flex-row gap-8 items-center">
+                    <div className="w-40 h-40 rounded-full overflow-hidden bg-zinc-800 flex-shrink-0">
+                      {/* Replace with your profile image */}
+                      <div className="w-full h-full bg-gradient-to-br from-zinc-700 to-zinc-900"></div>
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-xl font-semibold mb-3 text-white">Mehir Developer</h3>
+                      <p className="text-zinc-200 mb-4">
+                        I'm a passionate full-stack developer with expertise in modern web technologies. With a strong foundation in both frontend and backend development, I create seamless digital experiences that combine elegant design with robust functionality.
+                      </p>
+                      <p className="text-zinc-200">
+                        My journey in software development began 5 years ago, and since then, I've worked on a variety of projects ranging from e-commerce platforms to complex web applications. I'm constantly exploring new technologies and approaches to deliver the best solutions for my clients.
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </motion.div>
-          </div>
-        </section>
+              </motion.div>
+            </div>
+          </section>
 
-        {/* Skills Section */}
-        <section id="skills" className="py-20 md:py-32 bg-black/30">
-          <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
-              <h2 className="text-3xl md:text-4xl font-bold mb-12 text-white text-center">Skills & Expertise</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <SkillCard 
-                  icon={<Monitor className="h-8 w-8 text-emerald-400" />}
-                  title="Frontend"
-                  skills={['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion']}
-                />
-                <SkillCard 
-                  icon={<Server className="h-8 w-8 text-blue-400" />}
-                  title="Backend"
-                  skills={['Node.js', 'Express', 'MongoDB', 'Firebase', 'AWS']}
-                />
-                <SkillCard 
-                  icon={<Code className="h-8 w-8 text-purple-400" />}
-                  title="Languages"
-                  skills={['JavaScript', 'TypeScript', 'Python', 'HTML/CSS', 'SQL']}
-                />
-                <SkillCard 
-                  icon={<Layers className="h-8 w-8 text-amber-400" />}
-                  title="Tools"
-                  skills={['Git', 'Docker', 'Figma', 'VS Code', 'Jest']}
-                />
-              </div>
-            </motion.div>
-          </div>
-        </section>
+          {/* Skills Section */}
+          <section id="skills" className="py-20 md:py-32 bg-black/30">
+            <div className="container mx-auto px-4">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+              >
+                <h2 className="text-3xl md:text-4xl font-bold mb-12 text-white text-center">Skills & Expertise</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                  <SkillCard 
+                    icon={<Monitor className="h-8 w-8 text-emerald-400" />}
+                    title="Frontend"
+                    skills={['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion']}
+                  />
+                  <SkillCard 
+                    icon={<Server className="h-8 w-8 text-blue-400" />}
+                    title="Backend"
+                    skills={['Node.js', 'Express', 'MongoDB', 'Firebase', 'AWS']}
+                  />
+                  <SkillCard 
+                    icon={<Code className="h-8 w-8 text-purple-400" />}
+                    title="Languages"
+                    skills={['JavaScript', 'TypeScript', 'Python', 'HTML/CSS', 'SQL']}
+                  />
+                  <SkillCard 
+                    icon={<Layers className="h-8 w-8 text-amber-400" />}
+                    title="Tools"
+                    skills={['Git', 'Docker', 'Figma', 'VS Code', 'Jest']}
+                  />
+                </div>
+              </motion.div>
+            </div>
+          </section>
 
-        {/* Projects Section */}
-        <section id="projects" className="py-20 md:py-32">
-          <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
-              <h2 className="text-3xl md:text-4xl font-bold mb-12 text-white text-center">Featured Projects</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <ProjectCard
-                  title="E-Commerce Platform"
-                  description="A full-featured online store with payment processing, product management, and customer profiles."
-                  tags={['Next.js', 'Stripe', 'MongoDB']}
-                  image="/project1.jpg"
-                />
-                <ProjectCard
-                  title="Social Media Dashboard"
-                  description="Analytics dashboard for social media management with real-time data visualization."
-                  tags={['React', 'D3.js', 'Firebase']}
-                  image="/project2.jpg"
-                />
-                <ProjectCard
-                  title="Task Management App"
-                  description="Collaborative task management tool with real-time updates and team communication features."
-                  tags={['TypeScript', 'Socket.io', 'Express']}
-                  image="/project3.jpg"
-                />
-              </div>
-              <div className="mt-12 text-center">
-                <Button className="bg-zinc-800 hover:bg-zinc-700 text-white">
-                  View All Projects
-                </Button>
-              </div>
-            </motion.div>
-          </div>
-        </section>
+          {/* Projects Section */}
+          <section id="projects" className="py-20 md:py-32">
+            <div className="container mx-auto px-4">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+              >
+                <h2 className="text-3xl md:text-4xl font-bold mb-12 text-white text-center">Featured Projects</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  <ProjectCard
+                    title="E-Commerce Platform"
+                    description="A full-featured online store with payment processing, product management, and customer profiles."
+                    tags={['Next.js', 'Stripe', 'MongoDB']}
+                    image="/project1.jpg"
+                  />
+                  <ProjectCard
+                    title="Social Media Dashboard"
+                    description="Analytics dashboard for social media management with real-time data visualization."
+                    tags={['React', 'D3.js', 'Firebase']}
+                    image="/project2.jpg"
+                  />
+                  <ProjectCard
+                    title="Task Management App"
+                    description="Collaborative task management tool with real-time updates and team communication features."
+                    tags={['TypeScript', 'Socket.io', 'Express']}
+                    image="/project3.jpg"
+                  />
+                </div>
+                <div className="mt-12 text-center">
+                  <Button className="bg-zinc-800 hover:bg-zinc-700 text-white">
+                    View All Projects
+                  </Button>
+                </div>
+              </motion.div>
+            </div>
+          </section>
 
-        {/* Testimonials Section */}
-        <section id="testimonials" className="py-20 md:py-32 bg-black/30">
-          <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
-              <h2 className="text-3xl md:text-4xl font-bold mb-12 text-white text-center">What Clients Say</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <TestimonialCard
-                  quote="Mehir delivered our project on time and exceeded our expectations. The attention to detail and user experience considerations were exceptional."
-                  author="Alex Johnson"
-                  position="CTO, TechStart Inc."
-                />
-                <TestimonialCard
-                  quote="Working with Mehir was a seamless experience. The communication was clear and the technical expertise truly impressive. I highly recommend their services."
-                  author="Sarah Williams"
-                  position="Product Manager, InnovateSoft"
-                />
-                <TestimonialCard
-                  quote="The e-commerce platform that Mehir built for us has significantly increased our conversion rates. A truly talented developer with business acumen."
-                  author="Michael Chen"
-                  position="Founder, StyleBoutique"
-                />
-              </div>
-            </motion.div>
-          </div>
-        </section>
+          {/* Testimonials Section */}
+          <section id="testimonials" className="py-20 md:py-32 bg-black/30">
+            <div className="container mx-auto px-4">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+              >
+                <h2 className="text-3xl md:text-4xl font-bold mb-12 text-white text-center">What Clients Say</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  <TestimonialCard
+                    quote="Mehir delivered our project on time and exceeded our expectations. The attention to detail and user experience considerations were exceptional."
+                    author="Alex Johnson"
+                    position="CTO, TechStart Inc."
+                  />
+                  <TestimonialCard
+                    quote="Working with Mehir was a seamless experience. The communication was clear and the technical expertise truly impressive. I highly recommend their services."
+                    author="Sarah Williams"
+                    position="Product Manager, InnovateSoft"
+                  />
+                  <TestimonialCard
+                    quote="The e-commerce platform that Mehir built for us has significantly increased our conversion rates. A truly talented developer with business acumen."
+                    author="Michael Chen"
+                    position="Founder, StyleBoutique"
+                  />
+                </div>
+              </motion.div>
+            </div>
+          </section>
 
-        {/* Contact Section */}
-        <section id="contact" className="py-20 md:py-32 bg-black/30">
-          <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
-              <h2 className="text-3xl md:text-4xl font-bold mb-12 text-white text-center">Get In Touch</h2>
-              <div className="max-w-3xl mx-auto">
-                <div className="bg-zinc-900/50 border border-zinc-800 rounded-lg p-8 backdrop-blur-sm">
-                  <form className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div>
-                        <label htmlFor="name" className="block text-sm font-medium text-zinc-200 mb-2">Name</label>
-                        <input
-                          type="text"
-                          id="name"
-                          className="w-full bg-zinc-800/50 border border-zinc-700 rounded-md py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-zinc-600 focus:border-transparent"
-                          placeholder="Your name"
+          {/* Contact Section */}
+          <section id="contact" className="py-20 md:py-32 bg-black/30">
+            <div className="container mx-auto px-4">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+              >
+                <h2 className="text-3xl md:text-4xl font-bold mb-12 text-white text-center">Get In Touch</h2>
+                <div className="max-w-3xl mx-auto">
+                  <div className="bg-zinc-900/50 border border-zinc-800 rounded-lg p-8 backdrop-blur-sm">
+                    <form className="space-y-6">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="space-y-2">
+                          <Label htmlFor="name" className="text-zinc-200">Name</Label>
+                          <Input
+                            id="name"
+                            placeholder="Your name"
+                            className="bg-zinc-800/50 border-zinc-700 text-white focus:ring-zinc-600"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="email" className="text-zinc-200">Email</Label>
+                          <Input
+                            id="email"
+                            type="email"
+                            placeholder="Your email"
+                            className="bg-zinc-800/50 border-zinc-700 text-white focus:ring-zinc-600"
+                          />
+                        </div>
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="subject" className="text-zinc-200">Subject</Label>
+                        <Input
+                          id="subject"
+                          placeholder="Subject"
+                          className="bg-zinc-800/50 border-zinc-700 text-white focus:ring-zinc-600"
                         />
                       </div>
-                      <div>
-                        <label htmlFor="email" className="block text-sm font-medium text-zinc-200 mb-2">Email</label>
-                        <input
-                          type="email"
-                          id="email"
-                          className="w-full bg-zinc-800/50 border border-zinc-700 rounded-md py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-zinc-600 focus:border-transparent"
-                          placeholder="Your email"
+                      <div className="space-y-2">
+                        <Label htmlFor="message" className="text-zinc-200">Message</Label>
+                        <Textarea
+                          id="message"
+                          rows={5}
+                          placeholder="Your message"
+                          className="bg-zinc-800/50 border-zinc-700 text-white focus:ring-zinc-600"
                         />
                       </div>
-                    </div>
-                    <div>
-                      <label htmlFor="subject" className="block text-sm font-medium text-zinc-200 mb-2">Subject</label>
-                      <input
-                        type="text"
-                        id="subject"
-                        className="w-full bg-zinc-800/50 border border-zinc-700 rounded-md py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-zinc-600 focus:border-transparent"
-                        placeholder="Subject"
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="message" className="block text-sm font-medium text-zinc-200 mb-2">Message</label>
-                      <textarea
-                        id="message"
-                        rows={5}
-                        className="w-full bg-zinc-800/50 border border-zinc-700 rounded-md py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-zinc-600 focus:border-transparent"
-                        placeholder="Your message"
-                      ></textarea>
-                    </div>
-                    <div>
-                      <Button className="bg-zinc-800 hover:bg-zinc-700 text-white w-full py-6">
+                      <Button className="w-full bg-zinc-800 hover:bg-zinc-700 text-white">
                         Send Message
                       </Button>
-                    </div>
-                  </form>
+                    </form>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-          </div>
-        </section>
-      </main>
-      <Footer />
-    </>
+              </motion.div>
+            </div>
+          </section>
+          <Footer />
+        </main>
+      </div>
+    </div>
   );
 }
 
@@ -337,4 +338,4 @@ function TestimonialCard({ quote, author, position }) {
       </div>
     </motion.div>
   );
-} 
+}
