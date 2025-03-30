@@ -16,26 +16,26 @@ export default function Footer() {
             <Link href="/" className="flex items-center space-x-2">
               <span className="text-2xl font-bold dark-text-gradient">Mehir.dev</span>
             </Link>
-            <p className="text-zinc-400 max-w-xs">
+            <p className="text-zinc-200 max-w-xs">
               Creating elegant digital experiences with precision and attention to detail.
             </p>
             
             {/* Social Links */}
             <div className="flex space-x-4 mt-4">
               <Button variant="ghost" size="icon" className="rounded-full h-10 w-10 hover:bg-zinc-800/50">
-                <Github className="h-5 w-5 text-zinc-400 hover:text-white" />
+                <Github className="h-5 w-5 text-zinc-200 hover:text-white" />
                 <span className="sr-only">GitHub</span>
               </Button>
               <Button variant="ghost" size="icon" className="rounded-full h-10 w-10 hover:bg-zinc-800/50">
-                <Linkedin className="h-5 w-5 text-zinc-400 hover:text-white" />
+                <Linkedin className="h-5 w-5 text-zinc-200 hover:text-white" />
                 <span className="sr-only">LinkedIn</span>
               </Button>
               <Button variant="ghost" size="icon" className="rounded-full h-10 w-10 hover:bg-zinc-800/50">
-                <Twitter className="h-5 w-5 text-zinc-400 hover:text-white" />
+                <Twitter className="h-5 w-5 text-zinc-200 hover:text-white" />
                 <span className="sr-only">Twitter</span>
               </Button>
               <Button variant="ghost" size="icon" className="rounded-full h-10 w-10 hover:bg-zinc-800/50">
-                <Mail className="h-5 w-5 text-zinc-400 hover:text-white" />
+                <Mail className="h-5 w-5 text-zinc-200 hover:text-white" />
                 <span className="sr-only">Email</span>
               </Button>
             </div>
@@ -46,22 +46,32 @@ export default function Footer() {
             <h3 className="text-lg font-semibold text-white">Navigation</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="#home" className="text-zinc-400 hover:text-white transition-colors">
+                <Link href="#home" className="text-zinc-200 hover:text-white transition-colors">
                   Home
                 </Link>
               </li>
               <li>
-                <Link href="#about" className="text-zinc-400 hover:text-white transition-colors">
+                <Link href="#about" className="text-zinc-200 hover:text-white transition-colors">
                   About
                 </Link>
               </li>
               <li>
-                <Link href="#projects" className="text-zinc-400 hover:text-white transition-colors">
+                <Link href="#skills" className="text-zinc-200 hover:text-white transition-colors">
+                  Skills
+                </Link>
+              </li>
+              <li>
+                <Link href="#projects" className="text-zinc-200 hover:text-white transition-colors">
                   Projects
                 </Link>
               </li>
               <li>
-                <Link href="#contact" className="text-zinc-400 hover:text-white transition-colors">
+                <Link href="#testimonials" className="text-zinc-200 hover:text-white transition-colors">
+                  Testimonials
+                </Link>
+              </li>
+              <li>
+                <Link href="#contact" className="text-zinc-200 hover:text-white transition-colors">
                   Contact
                 </Link>
               </li>
@@ -71,7 +81,7 @@ export default function Footer() {
           {/* Contact Information */}
           <div className="flex flex-col space-y-4">
             <h3 className="text-lg font-semibold text-white">Contact</h3>
-            <address className="not-italic text-zinc-400 space-y-2">
+            <address className="not-italic text-zinc-200 space-y-2">
               <p>India</p>
               <p>
                 <a href="mailto:contact@mehir.dev" className="hover:text-white transition-colors">
@@ -84,7 +94,7 @@ export default function Footer() {
         
         {/* Copyright */}
         <div className="mt-12 pt-6 border-t border-zinc-800/50 text-center">
-          <p className="text-zinc-500 text-sm">
+          <p className="text-zinc-300 text-sm">
             &copy; {currentYear} Mehir.dev. All rights reserved.
           </p>
         </div>
