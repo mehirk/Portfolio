@@ -16,10 +16,10 @@ const ContactSection = dynamic(() => import('@/components/sections/ContactSectio
 
 // Loading fallback component
 const LoadingSkeleton = () => (
-  <div className="animate-pulse flex flex-col w-full gap-8 p-8">
-    <div className="h-96 bg-zinc-800/30 rounded-lg"></div>
-    <div className="h-80 bg-zinc-800/30 rounded-lg"></div>
-    <div className="h-80 bg-zinc-800/30 rounded-lg"></div>
+  <div className="animate-pulse flex flex-col w-full gap-10 p-8">
+    <div className="h-96 bg-zinc-800/20 rounded-2xl"></div>
+    <div className="h-80 bg-zinc-800/20 rounded-2xl"></div>
+    <div className="h-80 bg-zinc-800/20 rounded-2xl"></div>
   </div>
 );
 
@@ -54,9 +54,9 @@ export default function Home() {
   if (!isMounted) {
     return (
       <div className="flex min-h-screen">
-        <div className="w-72 bg-zinc-900"></div>
-        <div className="flex-1 pl-72 relative">
-          <main className="min-h-screen bg-deep-dark">
+        <div className="w-64 md:w-72 bg-zinc-950/90 shadow-2xl"></div>
+        <div className="flex-1 pl-64 md:pl-72 relative">
+          <main className="min-h-screen">
             <LoadingSkeleton />
           </main>
         </div>
@@ -67,14 +67,15 @@ export default function Home() {
   return (
     <LazyMotion features={domAnimation}>
       <div className="flex min-h-screen">
-        <Suspense fallback={<div className="w-72 bg-zinc-900"></div>}>
+        <Suspense fallback={<div className="w-64 md:w-72 bg-zinc-950/90 shadow-xl"></div>}>
           <Sidebar />
         </Suspense>
-        <div className="flex-1 pl-72 relative">
-          <main className="min-h-screen bg-deep-dark" ref={containerRef}>
-            <div className="absolute inset-0 animated-gradient-bg color-shift-multi opacity-40"></div>
-            <div className="absolute inset-0 star-bg opacity-30 pointer-events-none"></div>
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/40 pointer-events-none"></div>
+        <div className="flex-1 pl-64 md:pl-72 relative">
+          <main className="min-h-screen" ref={containerRef}>
+            {/* Background effects */}
+            <div className="fixed inset-0 animated-gradient-bg color-shift-elegant opacity-20 pointer-events-none"></div>
+            
+            {/* Content */}
             <div className="relative z-10">
               <Suspense fallback={<LoadingSkeleton />}>
                 <HeroSection scrollY={scrollMotionValue} />
