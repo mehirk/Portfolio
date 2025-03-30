@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, stagger, useScroll, useTransform } from 'framer-motion';
 import Sidebar from '@/components/Sidebar';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
@@ -10,18 +10,42 @@ import { Label } from '@/components/ui/label';
 import { Code, Layers, Monitor, Server } from 'lucide-react';
 
 export default function Home() {
+  const { scrollY } = useScroll();
+  const opacity = useTransform(scrollY, [0, 200], [1, 0]);
+  const scale = useTransform(scrollY, [0, 200], [1, 0.9]);
+  
   return (
     <div className="flex min-h-screen">
       <Sidebar />
-      <div className="flex-1 ml-64">
+      <div className="flex-1 pl-72 relative">
         <main className="min-h-screen dark-gradient">
           {/* Hero Section */}
           <section id="home" className="relative h-screen flex flex-col items-center justify-center">
-            {/* Subtle background effects */}
-            <div className="absolute inset-0 overflow-hidden opacity-10">
-              <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-white/5 rounded-full filter blur-3xl"></div>
-              <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-white/5 rounded-full filter blur-3xl"></div>
-            </div>
+            {/* Animated background elements */}
+            <motion.div 
+              animate={{ 
+                rotate: [0, 360],
+                opacity: [0.05, 0.1, 0.05]
+              }}
+              transition={{ 
+                duration: 30, 
+                repeat: Infinity,
+                ease: "linear" 
+              }}
+              className="absolute top-1/4 left-1/4 w-96 h-96 bg-white/5 rounded-full filter blur-3xl"
+            />
+            <motion.div 
+              animate={{ 
+                rotate: [360, 0],
+                opacity: [0.05, 0.1, 0.05]
+              }}
+              transition={{ 
+                duration: 25, 
+                repeat: Infinity,
+                ease: "linear"
+              }}
+              className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-white/5 rounded-full filter blur-3xl"
+            />
             
             <div className="container px-4 z-10">
               <motion.div
@@ -30,28 +54,41 @@ export default function Home() {
                 transition={{ duration: 0.8, delay: 0.2 }}
                 className="text-center max-w-3xl mx-auto"
               >
-                <h1 className="text-5xl md:text-7xl font-bold dark-text-gradient mb-6">
+                <motion.h1 
+                  style={{ opacity, scale }}
+                  className="text-5xl md:text-7xl font-bold dark-text-gradient mb-6"
+                >
                   Mehir Portfolio
-                </h1>
+                </motion.h1>
                 <p className="text-xl text-zinc-200 mb-10 leading-relaxed">
                   Creating exceptional digital experiences with elegance and precision.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button 
-                    size="lg" 
-                    className="bg-zinc-800 hover:bg-zinc-700 text-white"
-                    onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
-                    View Projects
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    size="lg" 
-                    className="text-white border-zinc-600 hover:bg-zinc-800/50"
-                    onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                    <Button 
+                      size="lg" 
+                      className="bg-zinc-800 hover:bg-zinc-700 text-white"
+                      onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+                    >
+                      View Projects
+                    </Button>
+                  </motion.div>
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
-                    Contact Me
-                  </Button>
+                    <Button 
+                      variant="outline" 
+                      size="lg" 
+                      className="text-white border-zinc-600 hover:bg-zinc-800/50"
+                      onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                    >
+                      Contact Me
+                    </Button>
+                  </motion.div>
                 </div>
               </motion.div>
             </div>
@@ -81,12 +118,22 @@ export default function Home() {
                 className="max-w-4xl mx-auto"
               >
                 <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white text-center">About Me</h2>
-                <div className="bg-zinc-900/50 border border-zinc-800 rounded-lg p-8 backdrop-blur-sm">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.6 }}
+                  className="bg-zinc-900/50 border border-zinc-800 rounded-lg p-8 backdrop-blur-sm"
+                >
                   <div className="flex flex-col md:flex-row gap-8 items-center">
-                    <div className="w-40 h-40 rounded-full overflow-hidden bg-zinc-800 flex-shrink-0">
+                    <motion.div 
+                      whileHover={{ rotate: 5 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                      className="w-40 h-40 rounded-full overflow-hidden bg-zinc-800 flex-shrink-0"
+                    >
                       {/* Replace with your profile image */}
                       <div className="w-full h-full bg-gradient-to-br from-zinc-700 to-zinc-900"></div>
-                    </div>
+                    </motion.div>
                     <div className="flex-1">
                       <h3 className="text-xl font-semibold mb-3 text-white">Mehir Developer</h3>
                       <p className="text-zinc-200 mb-4">
@@ -97,7 +144,7 @@ export default function Home() {
                       </p>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               </motion.div>
             </div>
           </section>
@@ -113,26 +160,58 @@ export default function Home() {
               >
                 <h2 className="text-3xl md:text-4xl font-bold mb-12 text-white text-center">Skills & Expertise</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                  <SkillCard 
-                    icon={<Monitor className="h-8 w-8 text-emerald-400" />}
-                    title="Frontend"
-                    skills={['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion']}
-                  />
-                  <SkillCard 
-                    icon={<Server className="h-8 w-8 text-blue-400" />}
-                    title="Backend"
-                    skills={['Node.js', 'Express', 'MongoDB', 'Firebase', 'AWS']}
-                  />
-                  <SkillCard 
-                    icon={<Code className="h-8 w-8 text-purple-400" />}
-                    title="Languages"
-                    skills={['JavaScript', 'TypeScript', 'Python', 'HTML/CSS', 'SQL']}
-                  />
-                  <SkillCard 
-                    icon={<Layers className="h-8 w-8 text-amber-400" />}
-                    title="Tools"
-                    skills={['Git', 'Docker', 'Figma', 'VS Code', 'Jest']}
-                  />
+                  {/* Skills cards with staggered animation */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.1 }}
+                  >
+                    <SkillCard 
+                      icon={<Monitor className="h-8 w-8 text-emerald-400" />}
+                      title="Frontend"
+                      skills={['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion']}
+                    />
+                  </motion.div>
+                  
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                  >
+                    <SkillCard 
+                      icon={<Server className="h-8 w-8 text-blue-400" />}
+                      title="Backend"
+                      skills={['Node.js', 'Express', 'MongoDB', 'Firebase', 'AWS']}
+                    />
+                  </motion.div>
+                  
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.3 }}
+                  >
+                    <SkillCard 
+                      icon={<Code className="h-8 w-8 text-purple-400" />}
+                      title="Languages"
+                      skills={['JavaScript', 'TypeScript', 'Python', 'HTML/CSS', 'SQL']}
+                    />
+                  </motion.div>
+                  
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.4 }}
+                  >
+                    <SkillCard 
+                      icon={<Layers className="h-8 w-8 text-amber-400" />}
+                      title="Tools"
+                      skills={['Git', 'Docker', 'Figma', 'VS Code', 'Jest']}
+                    />
+                  </motion.div>
                 </div>
               </motion.div>
             </div>
@@ -149,29 +228,57 @@ export default function Home() {
               >
                 <h2 className="text-3xl md:text-4xl font-bold mb-12 text-white text-center">Featured Projects</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  <ProjectCard
-                    title="E-Commerce Platform"
-                    description="A full-featured online store with payment processing, product management, and customer profiles."
-                    tags={['Next.js', 'Stripe', 'MongoDB']}
-                    image="/project1.jpg"
-                  />
-                  <ProjectCard
-                    title="Social Media Dashboard"
-                    description="Analytics dashboard for social media management with real-time data visualization."
-                    tags={['React', 'D3.js', 'Firebase']}
-                    image="/project2.jpg"
-                  />
-                  <ProjectCard
-                    title="Task Management App"
-                    description="Collaborative task management tool with real-time updates and team communication features."
-                    tags={['TypeScript', 'Socket.io', 'Express']}
-                    image="/project3.jpg"
-                  />
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.1 }}
+                  >
+                    <ProjectCard
+                      title="E-Commerce Platform"
+                      description="A full-featured online store with payment processing, product management, and customer profiles."
+                      tags={['Next.js', 'Stripe', 'MongoDB']}
+                      image="/project1.jpg"
+                    />
+                  </motion.div>
+                  
+                  <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                  >
+                    <ProjectCard
+                      title="Social Media Dashboard"
+                      description="Analytics dashboard for social media management with real-time data visualization."
+                      tags={['React', 'D3.js', 'Firebase']}
+                      image="/project2.jpg"
+                    />
+                  </motion.div>
+                  
+                  <motion.div
+                    initial={{ opacity: 0, x: 20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.3 }}
+                  >
+                    <ProjectCard
+                      title="Task Management App"
+                      description="Collaborative task management tool with real-time updates and team communication features."
+                      tags={['TypeScript', 'Socket.io', 'Express']}
+                      image="/project3.jpg"
+                    />
+                  </motion.div>
                 </div>
                 <div className="mt-12 text-center">
-                  <Button className="bg-zinc-800 hover:bg-zinc-700 text-white">
-                    View All Projects
-                  </Button>
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Button className="bg-zinc-800 hover:bg-zinc-700 text-white">
+                      View All Projects
+                    </Button>
+                  </motion.div>
                 </div>
               </motion.div>
             </div>
@@ -188,21 +295,44 @@ export default function Home() {
               >
                 <h2 className="text-3xl md:text-4xl font-bold mb-12 text-white text-center">What Clients Say</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  <TestimonialCard
-                    quote="Mehir delivered our project on time and exceeded our expectations. The attention to detail and user experience considerations were exceptional."
-                    author="Alex Johnson"
-                    position="CTO, TechStart Inc."
-                  />
-                  <TestimonialCard
-                    quote="Working with Mehir was a seamless experience. The communication was clear and the technical expertise truly impressive. I highly recommend their services."
-                    author="Sarah Williams"
-                    position="Product Manager, InnovateSoft"
-                  />
-                  <TestimonialCard
-                    quote="The e-commerce platform that Mehir built for us has significantly increased our conversion rates. A truly talented developer with business acumen."
-                    author="Michael Chen"
-                    position="Founder, StyleBoutique"
-                  />
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: 0.1 }}
+                  >
+                    <TestimonialCard
+                      quote="Mehir delivered our project on time and exceeded our expectations. The attention to detail and user experience considerations were exceptional."
+                      author="Alex Johnson"
+                      position="CTO, TechStart Inc."
+                    />
+                  </motion.div>
+                  
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: 0.2 }}
+                  >
+                    <TestimonialCard
+                      quote="Working with Mehir was a seamless experience. The communication was clear and the technical expertise truly impressive. I highly recommend their services."
+                      author="Sarah Williams"
+                      position="Product Manager, InnovateSoft"
+                    />
+                  </motion.div>
+                  
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: 0.3 }}
+                  >
+                    <TestimonialCard
+                      quote="The e-commerce platform that Mehir built for us has significantly increased our conversion rates. A truly talented developer with business acumen."
+                      author="Michael Chen"
+                      position="Founder, StyleBoutique"
+                    />
+                  </motion.div>
                 </div>
               </motion.div>
             </div>
@@ -219,18 +349,36 @@ export default function Home() {
               >
                 <h2 className="text-3xl md:text-4xl font-bold mb-12 text-white text-center">Get In Touch</h2>
                 <div className="max-w-3xl mx-auto">
-                  <div className="bg-zinc-900/50 border border-zinc-800 rounded-lg p-8 backdrop-blur-sm">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5 }}
+                    className="bg-zinc-900/50 border border-zinc-800 rounded-lg p-8 backdrop-blur-sm"
+                  >
                     <form className="space-y-6">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="space-y-2">
+                        <motion.div 
+                          initial={{ opacity: 0, x: -20 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.4, delay: 0.1 }}
+                          className="space-y-2"
+                        >
                           <Label htmlFor="name" className="text-zinc-200">Name</Label>
                           <Input
                             id="name"
                             placeholder="Your name"
                             className="bg-zinc-800/50 border-zinc-700 text-white focus:ring-zinc-600"
                           />
-                        </div>
-                        <div className="space-y-2">
+                        </motion.div>
+                        <motion.div 
+                          initial={{ opacity: 0, x: 20 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.4, delay: 0.2 }}
+                          className="space-y-2"
+                        >
                           <Label htmlFor="email" className="text-zinc-200">Email</Label>
                           <Input
                             id="email"
@@ -238,17 +386,29 @@ export default function Home() {
                             placeholder="Your email"
                             className="bg-zinc-800/50 border-zinc-700 text-white focus:ring-zinc-600"
                           />
-                        </div>
+                        </motion.div>
                       </div>
-                      <div className="space-y-2">
+                      <motion.div 
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.4, delay: 0.3 }}
+                        className="space-y-2"
+                      >
                         <Label htmlFor="subject" className="text-zinc-200">Subject</Label>
                         <Input
                           id="subject"
                           placeholder="Subject"
                           className="bg-zinc-800/50 border-zinc-700 text-white focus:ring-zinc-600"
                         />
-                      </div>
-                      <div className="space-y-2">
+                      </motion.div>
+                      <motion.div 
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.4, delay: 0.4 }}
+                        className="space-y-2"
+                      >
                         <Label htmlFor="message" className="text-zinc-200">Message</Label>
                         <Textarea
                           id="message"
@@ -256,12 +416,17 @@ export default function Home() {
                           placeholder="Your message"
                           className="bg-zinc-800/50 border-zinc-700 text-white focus:ring-zinc-600"
                         />
-                      </div>
-                      <Button className="w-full bg-zinc-800 hover:bg-zinc-700 text-white">
-                        Send Message
-                      </Button>
+                      </motion.div>
+                      <motion.div
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        <Button className="w-full bg-zinc-800 hover:bg-zinc-700 text-white">
+                          Send Message
+                        </Button>
+                      </motion.div>
                     </form>
-                  </div>
+                  </motion.div>
                 </div>
               </motion.div>
             </div>
