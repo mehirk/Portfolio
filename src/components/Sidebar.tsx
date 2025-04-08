@@ -182,20 +182,37 @@ export default function Sidebar() {
     const currentSectionRef = { current: 'home' };
     
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const sectionId = entry.target.id;
-          if (currentSectionRef.current !== sectionId) {
-            currentSectionRef.current = sectionId;
-            setActiveSection(sectionId);
-          }
+      // Filter for elements that are intersecting
+      const intersectingEntries = entries.filter(entry => entry.isIntersecting);
+      
+      // If we have intersecting entries, find the one with the highest intersection ratio
+      if (intersectingEntries.length > 0) {
+        // Sort by intersection ratio (highest first)
+        const mostVisibleEntry = intersectingEntries.reduce((prev, current) => {
+          return current.intersectionRatio > prev.intersectionRatio ? current : prev;
+        }, intersectingEntries[0]);
+        
+        const sectionId = mostVisibleEntry.target.id;
+        
+        // Special handling for the contact section which might be difficult to detect
+        if (sectionId === 'contact') {
+          setActiveSection('contact');
+          currentSectionRef.current = 'contact';
+        } else if (currentSectionRef.current !== sectionId) {
+          currentSectionRef.current = sectionId;
+          setActiveSection(sectionId);
+          console.log("Current section:", sectionId); // Debug log
         }
-      });
+      }
     };
     
     observerRef.current = new IntersectionObserver(
       observerCallback, 
-      { root: null, rootMargin: '-10% 0px -70% 0px', threshold: 0.1 }
+      { 
+        root: null, 
+        rootMargin: '0px 0px -50% 0px', 
+        threshold: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0] 
+      }
     );
     
     // Observe all sections
@@ -204,7 +221,24 @@ export default function Sidebar() {
       observerRef.current?.observe(section);
     });
     
-    return () => observerRef.current?.disconnect();
+    // Add additional scroll listener specifically for contact section
+    const handleScroll = () => {
+      const contactSection = document.getElementById('contact');
+      if (contactSection) {
+        const rect = contactSection.getBoundingClientRect();
+        const isVisible = rect.top < window.innerHeight && rect.bottom >= 0;
+        if (isVisible && window.scrollY + window.innerHeight > document.body.scrollHeight - 100) {
+          setActiveSection('contact');
+        }
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    
+    return () => {
+      observerRef.current?.disconnect();
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
   
   const handleNavClick = (id: string) => {

@@ -9,29 +9,6 @@ interface HeroSectionProps {
   scrollY: number | { get: () => number; onChange: any };
 }
 
-// Animation variants for background elements
-const backgroundVariants = {
-  animate1: {
-    rotate: [0, 360],
-    opacity: [0.05, 0.1, 0.05]
-  },
-  animate2: {
-    rotate: [360, 0],
-    opacity: [0.05, 0.1, 0.05]
-  },
-  animate3: {
-    rotate: [180, 540],
-    opacity: [0.05, 0.08, 0.05]
-  }
-};
-
-// Animation transitions
-const transitions = {
-  slow: { duration: 30, repeat: Infinity, ease: "linear" },
-  medium: { duration: 25, repeat: Infinity, ease: "linear" },
-  fast: { duration: 20, repeat: Infinity, ease: "linear" }
-};
-
 export function HeroSection({ scrollY }: HeroSectionProps) {
   // Get scroll value depending on the type passed
   const getScrollValue = () => {
@@ -67,26 +44,6 @@ export function HeroSection({ scrollY }: HeroSectionProps) {
   
   return (
     <section id="home" className="relative h-screen flex flex-col items-center justify-center overflow-hidden">
-      {/* Animated background elements - completely transparent now */}
-      <motion.div 
-        animate={backgroundVariants.animate1}
-        transition={transitions.slow}
-        style={{ willChange: "transform" }}
-        className="absolute top-1/4 left-1/4 w-96 h-96 bg-black/5 rounded-full filter blur-3xl"
-      />
-      <motion.div 
-        animate={backgroundVariants.animate2}
-        transition={transitions.medium}
-        style={{ willChange: "transform" }}
-        className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-black/5 rounded-full filter blur-3xl"
-      />
-      <motion.div 
-        animate={backgroundVariants.animate3}
-        transition={transitions.fast}
-        style={{ willChange: "transform" }}
-        className="absolute top-1/3 right-1/3 w-72 h-72 bg-black/5 rounded-full filter blur-3xl"
-      />
-      
       <div className="container px-4 z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -112,7 +69,7 @@ export function HeroSection({ scrollY }: HeroSectionProps) {
           
           <div className="text-xl text-zinc-200 mb-10 leading-relaxed text-readability-shadow text-center">
             <HandwritingText
-              text="Computer Science Student at Acadia University"
+              text="  Computer Science Student at Acadia University!"
               speed={50}
               delay={1000}
             />
