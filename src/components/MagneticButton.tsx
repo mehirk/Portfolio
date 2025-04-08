@@ -88,7 +88,9 @@ export function MagneticButton({
   
   // Determine which element to render based on whether href is provided
   const Component = href ? 'a' : 'button';
-  const additionalProps = href ? { href } : { type: 'button' };
+  const additionalProps = href 
+    ? { href } 
+    : { type: "button" as "button" | "submit" | "reset" };
   
   return (
     <motion.div
@@ -108,19 +110,29 @@ export function MagneticButton({
         y: ySpring,
       }}
     >
-      <Component 
-        {...additionalProps}
-        className="block outline-none"
-      >
-        <motion.div
-          style={{
-            x: contentX,
-            y: contentY,
-          }}
-        >
-          {children}
-        </motion.div>
-      </Component>
+      {href ? (
+        <a href={href} className="block outline-none">
+          <motion.div
+            style={{
+              x: contentX,
+              y: contentY,
+            }}
+          >
+            {children}
+          </motion.div>
+        </a>
+      ) : (
+        <button type="button" className="block outline-none">
+          <motion.div
+            style={{
+              x: contentX,
+              y: contentY,
+            }}
+          >
+            {children}
+          </motion.div>
+        </button>
+      )}
     </motion.div>
   );
 } 
