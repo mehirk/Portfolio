@@ -12,6 +12,7 @@ const AboutSection = dynamic(() => import('@/components/sections/AboutSection').
 const SkillsSection = dynamic(() => import('@/components/sections/SkillsSection').then(mod => ({ default: mod.SkillsSection })), { ssr: false });
 const ProjectsSection = dynamic(() => import('@/components/sections/ProjectsSection').then(mod => ({ default: mod.ProjectsSection })), { ssr: false });
 const ContactSection = dynamic(() => import('@/components/sections/ContactSection').then(mod => ({ default: mod.ContactSection })), { ssr: false });
+const InteractionDemo = dynamic(() => import('@/components/sections/InteractionDemo').then(mod => ({ default: mod.InteractionDemo })), { ssr: false });
 
 // Loading fallback component
 const LoadingSkeleton = () => (
@@ -65,6 +66,7 @@ export default function Home() {
                 <AboutSection />
                 <SkillsSection />
                 <ProjectsSection />
+                <InteractionDemo />
                 <ContactSection />
                 <Footer />
               </Suspense>
