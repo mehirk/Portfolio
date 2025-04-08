@@ -91,7 +91,7 @@ const CustomButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
           className={cn(buttonVariants({ variant, size, animation, className }))}
           ref={ref}
           disabled={isLoading}
-          {...props}
+          {...(props as any)}
         >
           {buttonContent}
         </motion.button>
