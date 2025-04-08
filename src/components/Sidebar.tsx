@@ -149,27 +149,68 @@ const DesktopSidebar = memo(({ activeSection, handleNavClick }: {
 
 DesktopSidebar.displayName = 'DesktopSidebar';
 
-// Mobile navigation component
+// Mobile navigation component - improved for better touch experience
 const MobileNavbar = memo(({ activeSection, handleNavClick }: {
   activeSection: string;
   handleNavClick: (id: string) => void;
-}) => (
-  <div className="md:hidden fixed bottom-5 left-4 right-4 bg-black/90 backdrop-blur-md border border-zinc-800/50 rounded-full flex justify-around items-center py-3 px-3 z-50 shadow-lg">
-    {navItems.map((item) => (
-      <button
-        key={item.id}
-        className={`p-2 rounded-full ${
-          activeSection === item.id 
-            ? 'text-white bg-zinc-800/80' 
-            : 'text-zinc-400 hover:text-white'
-        }`}
-        onClick={() => handleNavClick(item.id)}
-      >
-        {item.icon}
-      </button>
-    ))}
-  </div>
-));
+}) => {
+  const [showName, setShowName] = useState<string | null>(null);
+  
+  return (
+    <>
+      {/* Mobile header with name/logo */}
+      <div className="md:hidden fixed top-0 left-0 right-0 bg-black/90 backdrop-blur-md border-b border-zinc-800/50 z-50 py-3 px-4 flex items-center justify-between">
+        <div className="flex items-center">
+          <Logo />
+          <div className="ml-3">
+            <h2 className="text-white font-semibold text-lg font-raleway">Mehir Kumar</h2>
+            <p className="text-zinc-400 text-xs">Computer Science Student</p>
+          </div>
+        </div>
+        
+        <div className="flex space-x-3">
+          <SocialIcons className="ml-2" />
+        </div>
+      </div>
+      
+      {/* Bottom navigation bar */}
+      <div className="md:hidden fixed bottom-5 left-4 right-4 bg-black/90 backdrop-blur-md border border-zinc-800/50 rounded-full flex justify-around items-center py-3 px-4 z-50 shadow-lg">
+        {navItems.map((item) => (
+          <button
+            key={item.id}
+            className={`p-3 rounded-full relative ${
+              activeSection === item.id 
+                ? 'text-white bg-zinc-800/80' 
+                : 'text-zinc-400 hover:text-white'
+            }`}
+            onClick={() => handleNavClick(item.id)}
+            onTouchStart={() => setShowName(item.id)}
+            onTouchEnd={() => setShowName(null)}
+            onMouseEnter={() => setShowName(item.id)}
+            onMouseLeave={() => setShowName(null)}
+          >
+            {item.icon}
+            
+            {/* Label popup on hover/touch */}
+            {showName === item.id && (
+              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-black/90 text-white text-xs rounded whitespace-nowrap">
+                {item.label}
+              </div>
+            )}
+            
+            {activeSection === item.id && (
+              <div className="absolute left-0 right-0 bottom-0 h-1 bg-purple-500 rounded-t mx-1"></div>
+            )}
+          </button>
+        ))}
+      </div>
+      
+      {/* Extra padding for content to not be hidden behind fixed elements */}
+      <div className="md:hidden h-16 w-full"></div>
+      <div className="md:hidden h-20 w-full mt-auto"></div>
+    </>
+  );
+});
 
 MobileNavbar.displayName = 'MobileNavbar';
 

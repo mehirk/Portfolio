@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { FlipCard } from '@/components/FlipCard';
 import { AnimatedText } from '@/components/AnimatedText';
-import { HandwritingPath } from '@/components/HandwritingPath';
+import { HandwritingText } from '@/components/HandwritingText';
 
 // Project interface
 interface Project {
@@ -243,61 +243,71 @@ const containerVariants = {
 
 export function ProjectsSection() {
   return (
-    <section id="projects" className="py-20 md:py-32 relative">
-      <div className="container mx-auto px-4 relative z-10">
+    <section id="projects" className="py-16 md:py-24 relative overflow-hidden">
+      <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.6 }}
+          className="mb-12 md:mb-16 text-center relative z-10"
         >
-          <div className="text-center">
-            <AnimatedText 
-              text="Featured Projects"
-              className="text-3xl md:text-4xl font-bold mb-4 text-white justify-center"
-              once={true}
+          <AnimatedText 
+            text="My Projects"
+            className="text-3xl sm:text-4xl md:text-5xl font-bold text-white justify-center"
+            once={true}
+          />
+          <div className="mt-2 mx-auto relative">
+            <HandwritingText 
+              text="Explore my work"
+              speed={30}
+              delay={100}
+              className="mx-auto text-center text-zinc-300"
             />
           </div>
-          <div className="h-1 w-24 mx-auto bg-gradient-to-r from-indigo-400/60 to-blue-400/60 rounded-full mb-12"></div>
-          
-          <motion.div 
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            {projectsData.map((project, index) => (
-              <motion.div
-                key={project.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.1 * index }}
-              >
-                <ProjectCard
-                  title={project.title}
-                  description={project.description}
-                  tags={project.tags}
-                  image={project.image}
-                  color={project.color}
-                  role={project.role}
-                  date={project.date}
-                />
-              </motion.div>
-            ))}
-          </motion.div>
-          
-          <div className="mt-16 text-center">
+          <p className="text-zinc-300 mt-4 max-w-xl mx-auto text-sm sm:text-base">
+            A collection of projects I've worked on, from web applications to backend systems and more.
+            Each project demonstrates different skills and technologies.
+          </p>
+        </motion.div>
+        
+        {/* Projects grid - mobile-optimized */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          {projectsData.map((project, index) => (
             <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              key={project.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <Button className="bg-gradient-to-r from-indigo-500/80 to-blue-500/80 hover:from-indigo-600/90 hover:to-blue-600/90 text-white glossy-effect sleek-shadow">
-                View All Projects
-              </Button>
+              <FlipCard 
+                className={`h-[420px] sm:h-[450px] rounded-xl border border-white/5 shadow-glow-sm bg-gradient-to-br ${project.color} backdrop-blur-sm`}
+                frontContent={<ProjectCard {...project} />}
+                backContent={<ProjectCard {...project} />}
+              />
             </motion.div>
-          </div>
+          ))}
+        </div>
+        
+        {/* View all projects button */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="flex justify-center mt-10 md:mt-16"
+        >
+          <Button 
+            variant="outline" 
+            size="lg" 
+            className="border-white/10 text-white hover:bg-white/10 transition-colors"
+          >
+            View All Projects
+            <svg className="ml-2 h-4 w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </Button>
         </motion.div>
       </div>
     </section>
