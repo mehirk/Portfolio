@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { FlipCard } from '@/components/FlipCard';
 import { AnimatedText } from '@/components/AnimatedText';
+import { HandwritingPath } from '@/components/HandwritingPath';
 
 // Project interface
 interface Project {
@@ -62,25 +63,29 @@ const ProjectCard = ({ title, description, tags, image, color, role, date }: Pro
   // Front content of the card
   const frontContent = (
     <div className="h-full flex flex-col relative overflow-hidden">
-      {/* Decorative circle in the background */}
-      <div className="absolute -right-12 -top-12 w-48 h-48 rounded-full bg-white/5 backdrop-blur-xl"></div>
+      {/* Decorative elements in the background */}
+      <div className="absolute -right-12 -top-12 w-48 h-48 rounded-full bg-white/10 backdrop-blur-xl"></div>
+      <div className="absolute left-6 bottom-12 w-16 h-16 rounded-full bg-white/5 backdrop-blur-sm"></div>
+      
+      {/* Animated gradient border */}
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-pulse-slow rounded-xl"></div>
       
       <div className="p-8 flex flex-col h-full z-10 relative">
-        <div className="mb-4 flex justify-between items-center">
-          <div className="flex items-center justify-center w-16 h-16 rounded-full bg-white/10 backdrop-blur-sm">
+        <div className="mb-6 flex justify-between items-center">
+          <div className="flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-white/20 to-white/5 backdrop-blur-sm border border-white/10">
             <motion.div 
               className="flex items-center justify-center"
               whileHover={{ rotate: 360 }}
               transition={{ duration: 0.5 }}
             >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 6V12L16 14M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-white/90">
+                <path d="M12 6V12L16 14M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </motion.div>
           </div>
 
           <motion.div 
-            className="text-white/70 text-sm"
+            className="text-white/80 text-sm px-3 py-1 rounded-full bg-white/5 backdrop-blur-sm border border-white/10"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
@@ -90,7 +95,7 @@ const ProjectCard = ({ title, description, tags, image, color, role, date }: Pro
         </div>
 
         <motion.h3 
-          className="text-2xl font-bold text-white mb-2"
+          className="text-2xl font-bold text-white mb-2 text-shadow-sm"
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
@@ -99,7 +104,7 @@ const ProjectCard = ({ title, description, tags, image, color, role, date }: Pro
         </motion.h3>
 
         <motion.p 
-          className="text-sm text-white/60 mb-2"
+          className="text-sm text-white/70 mb-4"
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
@@ -108,12 +113,12 @@ const ProjectCard = ({ title, description, tags, image, color, role, date }: Pro
         </motion.p>
         
         <motion.div 
-          className="mt-auto flex items-center justify-center"
+          className="mt-auto flex items-center justify-center py-2"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          <div className="flex items-center gap-2 text-white">
+          <div className="flex items-center gap-2 text-white/90 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/10 hover:bg-white/15 transition-all">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="animate-pulse">
               <path d="M12 9V12L15 15M3 1H5L7.5 7M7.5 7L4.5 20C4.5 20 3 23 8 23C13 23 11.5 20 11.5 20L10.5 16H13.5L14.5 20C14.5 20 16 23 21 23C26 23 24.5 20 24.5 20L21.5 7M7.5 7H21.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
@@ -187,26 +192,41 @@ const ProjectCard = ({ title, description, tags, image, color, role, date }: Pro
   const getCardGradient = () => {
     switch(title) {
       case "Study Link":
-        return "bg-gradient-to-br from-indigo-600/20 via-purple-600/20 to-indigo-900/30";
+        return "bg-gradient-to-br from-indigo-500/30 via-purple-500/25 to-indigo-800/40";
       case "Secura Staff App":
-        return "bg-gradient-to-br from-blue-600/20 via-sky-600/20 to-blue-900/30";
+        return "bg-gradient-to-br from-blue-500/30 via-sky-400/25 to-blue-700/40";
       case "Flight Management System":
-        return "bg-gradient-to-br from-cyan-600/20 via-teal-600/20 to-cyan-900/30";
+        return "bg-gradient-to-br from-cyan-500/30 via-teal-400/25 to-cyan-700/40";
       default:
         return "bg-gradient-to-br from-zinc-800/90 to-zinc-900/90";
     }
   };
 
   return (
-    <FlipCard 
-      frontContent={frontContent}
-      backContent={backContent}
-      className={`glass-card backdrop-blur-lg h-full ${getCardGradient()} sleek-shadow border border-white/10 hover:border-white/20 transition-all duration-300`}
-      frontColor="bg-transparent"
-      backColor="bg-transparent"
-      width="100%"
-      height="400px"
-    />
+    <>
+      <style jsx global>{`
+        @keyframes pulse-slow {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.7; }
+        }
+        .animate-pulse-slow {
+          animation: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        .text-shadow-sm {
+          text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+      `}</style>
+    
+      <FlipCard 
+        frontContent={frontContent}
+        backContent={backContent}
+        className={`glass-card backdrop-blur-lg h-full ${getCardGradient()} sleek-shadow border border-white/15 hover:border-white/30 transition-all duration-300`}
+        frontColor="bg-transparent"
+        backColor="bg-transparent"
+        width="100%"
+        height="400px"
+      />
+    </>
   );
 };
 
@@ -240,7 +260,7 @@ export function ProjectsSection() {
               once={true}
             />
           </div>
-          <div className="h-1 w-24 mx-auto bg-gradient-to-r from-indigo-400/50 to-blue-400/50 rounded-full mb-12"></div>
+          <div className="h-1 w-24 mx-auto bg-gradient-to-r from-indigo-400/60 to-blue-400/60 rounded-full mb-12"></div>
           
           <motion.div 
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
@@ -275,7 +295,7 @@ export function ProjectsSection() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <Button className="bg-gradient-to-r from-indigo-600/80 to-blue-600/80 hover:from-indigo-700/90 hover:to-blue-700/90 text-white glossy-effect sleek-shadow">
+              <Button className="bg-gradient-to-r from-indigo-500/80 to-blue-500/80 hover:from-indigo-600/90 hover:to-blue-600/90 text-white glossy-effect sleek-shadow">
                 View All Projects
               </Button>
             </motion.div>
