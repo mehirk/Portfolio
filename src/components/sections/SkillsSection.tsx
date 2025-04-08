@@ -2,6 +2,8 @@
 
 import { motion } from 'framer-motion';
 import { Code, Layers, Monitor, Server, Database } from 'lucide-react';
+import { TiltCard } from '@/components/TiltCard';
+import { AnimatedText } from '@/components/AnimatedText';
 
 // Skill interface
 interface Skill {
@@ -51,12 +53,10 @@ const skillsData: Skill[] = [
 
 // SkillCard component
 const SkillCard = ({ icon, title, skills, color, borderColor, iconBgColor }: Skill) => (
-  <motion.div 
-    whileHover={{ y: -5, boxShadow: `0 10px 25px -5px ${color.includes('emerald') ? 'rgba(16, 185, 129, 0.1)' : 
-                                      color.includes('blue') ? 'rgba(59, 130, 246, 0.1)' : 
-                                      color.includes('indigo') ? 'rgba(99, 102, 241, 0.1)' : 
-                                      'rgba(251, 191, 36, 0.1)'}` }}
+  <TiltCard 
     className={`glass-card backdrop-blur-md transition-all duration-300 ${borderColor} p-6 sleek-shadow glossy-effect`}
+    glareOpacity={0.08}
+    tiltFactor={5}
   >
     <div className={`mb-6 w-14 h-14 rounded-full flex items-center justify-center ${iconBgColor} ${color}`}>
       {icon}
@@ -76,7 +76,7 @@ const SkillCard = ({ icon, title, skills, color, borderColor, iconBgColor }: Ski
         </motion.li>
       ))}
     </ul>
-  </motion.div>
+  </TiltCard>
 );
 
 export function SkillsSection() {
@@ -90,9 +90,12 @@ export function SkillsSection() {
           transition={{ duration: 0.8 }}
           className="relative"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white text-center">
-            Skills & Expertise
-          </h2>
+          <div className="text-center">
+            <AnimatedText 
+              text="Skills & Expertise"
+              className="text-3xl md:text-4xl font-bold mb-4 text-white justify-center"
+            />
+          </div>
           <div className="h-1 w-24 mx-auto bg-gradient-to-r from-cyan-400/50 to-blue-400/50 rounded-full mb-12"></div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">

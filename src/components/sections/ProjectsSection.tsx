@@ -2,6 +2,8 @@
 
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
+import { TiltCard } from '@/components/TiltCard';
+import { AnimatedText } from '@/components/AnimatedText';
 
 // Project interface
 interface Project {
@@ -58,10 +60,11 @@ const ProjectCard = ({ title, description, tags, image, color, role, date }: Pro
   };
 
   return (
-    <motion.div 
-      whileHover={{ y: -5, scale: 1.01 }}
-      transition={{ duration: 0.2 }}
+    <TiltCard 
       className={`glass-card backdrop-blur-md h-full flex flex-col relative overflow-hidden group bg-gradient-to-br ${color} sleek-shadow`}
+      glareOpacity={0.1}
+      tiltFactor={7}
+      scale={1.01}
     >
       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-white/5 via-white/0 to-transparent glossy-effect"></div>
       
@@ -133,7 +136,7 @@ const ProjectCard = ({ title, description, tags, image, color, role, date }: Pro
           </motion.a>
         </div>
       </div>
-    </motion.div>
+    </TiltCard>
   );
 };
 
@@ -160,9 +163,12 @@ export function ProjectsSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white text-center">
-            Featured Projects
-          </h2>
+          <div className="text-center">
+            <AnimatedText 
+              text="Featured Projects"
+              className="text-3xl md:text-4xl font-bold mb-4 text-white justify-center"
+            />
+          </div>
           <div className="h-1 w-24 mx-auto bg-gradient-to-r from-indigo-400/50 to-blue-400/50 rounded-full mb-12"></div>
           
           <motion.div 

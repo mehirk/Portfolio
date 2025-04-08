@@ -6,6 +6,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
+import { TiltCard } from '@/components/TiltCard';
+import { AnimatedText } from '@/components/AnimatedText';
 
 // Types
 interface FormInput {
@@ -193,17 +195,19 @@ export function ContactSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-white text-center">Get In Touch</h2>
+          <div className="text-center mb-12">
+            <AnimatedText 
+              text="Get In Touch"
+              className="text-3xl md:text-4xl font-bold text-white justify-center"
+            />
+          </div>
+          
           <div className="max-w-4xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
-              <motion.a
-                href="mailto:mehirk28@gmail.com"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.1 }}
-                whileHover={{ y: -5 }}
+              <TiltCard
                 className="bg-zinc-900/50 border border-zinc-800 rounded-lg p-6 flex flex-col items-center text-center"
+                glareOpacity={0.1}
+                tiltFactor={8}
               >
                 <div className="w-12 h-12 rounded-full bg-indigo-500/10 flex items-center justify-center mb-4">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -212,15 +216,13 @@ export function ContactSection() {
                 </div>
                 <h3 className="text-lg font-semibold text-white mb-1">Email</h3>
                 <p className="text-zinc-400">mehirk28@gmail.com</p>
-              </motion.a>
+                <a href="mailto:mehirk28@gmail.com" className="absolute inset-0" aria-label="Send email"></a>
+              </TiltCard>
               
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.3 }}
-                whileHover={{ y: -5 }}
+              <TiltCard
                 className="bg-zinc-900/50 border border-zinc-800 rounded-lg p-6 flex flex-col items-center text-center"
+                glareOpacity={0.1}
+                tiltFactor={8}
               >
                 <div className="w-12 h-12 rounded-full bg-emerald-500/10 flex items-center justify-center mb-4">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -230,15 +232,14 @@ export function ContactSection() {
                 </div>
                 <h3 className="text-lg font-semibold text-white mb-1">Location</h3>
                 <p className="text-zinc-400">Wolfville, Nova Scotia</p>
-              </motion.div>
+              </TiltCard>
             </div>
             
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
+            <TiltCard
               className="bg-zinc-900/50 border border-zinc-800 rounded-lg p-8 backdrop-blur-sm"
+              glareOpacity={0.05}
+              tiltFactor={2}
+              perspective={2000}
             >
               {isSuccess ? (
                 <SuccessMessage />
@@ -300,7 +301,7 @@ export function ContactSection() {
               ) : (
                 <FormLoadingPlaceholder />
               )}
-            </motion.div>
+            </TiltCard>
           </div>
         </motion.div>
       </div>

@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
+import { AnimatedText } from '@/components/AnimatedText';
 
 interface HeroSectionProps {
   scrollY: number | { get: () => number; onChange: any };
@@ -100,9 +101,10 @@ export function HeroSection({ scrollY }: HeroSectionProps) {
             }}
             className="mb-6"
           >
-            <h1 className="text-5xl md:text-7xl font-bold mb-2 text-white">
-              Mehir Kumar
-            </h1>
+            <AnimatedText
+              text="Mehir Kumar"
+              className="text-5xl md:text-7xl font-bold mb-2 text-white justify-center"
+            />
             <div className="h-1 w-32 mx-auto bg-gradient-to-r from-indigo-400/70 via-blue-400/70 to-cyan-400/70 rounded-full glow-effect"></div>
           </motion.div>
           <motion.p 
