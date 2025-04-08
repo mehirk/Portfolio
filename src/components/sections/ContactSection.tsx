@@ -126,29 +126,39 @@ export function ContactSection() {
   const [isClient, setIsClient] = useState(false);
   
   useEffect(() => {
-    // Delay setting isClient to true to avoid hydration mismatch
-    const timer = setTimeout(() => {
-      setIsClient(true);
-    }, 10);
+    // Set client-side rendering flag immediately
+    setIsClient(true);
     
-    return () => clearTimeout(timer);
+    return () => {
+      // Cleanup function
+    };
   }, []);
   
   const validateForm = (): boolean => {
-    const validations = {
-      name: formState.name.trim() ? '' : 'Name is required',
-      email: !formState.email.trim() 
-        ? 'Email is required' 
-        : !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formState.email) 
-          ? 'Valid email is required' 
-          : '',
-      subject: formState.subject.trim() ? '' : 'Subject is required',
-      message: formState.message.trim() ? '' : 'Message is required'
-    };
+    const newErrors: Partial<FormInput> = {};
     
-    const newErrors = Object.fromEntries(
-      Object.entries(validations).filter(([_, value]) => value)
-    );
+    // Name validation
+    if (!formState.name.trim()) {
+      newErrors.name = 'Name is required';
+    }
+    
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formState.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!emailRegex.test(formState.email)) {
+      newErrors.email = 'Valid email is required';
+    }
+    
+    // Subject validation
+    if (!formState.subject.trim()) {
+      newErrors.subject = 'Subject is required';
+    }
+    
+    // Message validation
+    if (!formState.message.trim()) {
+      newErrors.message = 'Message is required';
+    }
     
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -158,25 +168,35 @@ export function ContactSection() {
     const { name, value } = e.target;
     setFormState(prev => ({ ...prev, [name]: value }));
     
+    // Clear error for this field when user starts typing
     if (errors[name as keyof FormInput]) {
       setErrors(prev => ({ ...prev, [name]: undefined }));
     }
   };
   
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    
     if (!validateForm()) return;
     
     setIsSubmitting(true);
     
-    // Simulated form submission
-    setTimeout(() => {
+    try {
+      // Simulated form submission with proper error handling
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Reset form on success
       setFormState(initialFormState);
-      setIsSubmitting(false);
       setIsSuccess(true);
       
+      // Reset success message after delay
       setTimeout(() => setIsSuccess(false), 5000);
-    }, 1000);
+    } catch (error) {
+      console.error('Form submission error:', error);
+      // Could set a general submission error here if needed
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const formFields = [

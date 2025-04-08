@@ -201,7 +201,6 @@ export default function Sidebar() {
         } else if (currentSectionRef.current !== sectionId) {
           currentSectionRef.current = sectionId;
           setActiveSection(sectionId);
-          console.log("Current section:", sectionId); // Debug log
         }
       }
     };
@@ -210,8 +209,8 @@ export default function Sidebar() {
       observerCallback, 
       { 
         root: null, 
-        rootMargin: '0px 0px -50% 0px', 
-        threshold: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0] 
+        rootMargin: '0px 0px -45% 0px', 
+        threshold: [0.2, 0.4, 0.6, 0.8] 
       }
     );
     
@@ -233,7 +232,7 @@ export default function Sidebar() {
       }
     };
     
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     
     return () => {
       observerRef.current?.disconnect();

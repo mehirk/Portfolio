@@ -4,10 +4,18 @@ import { Inter, Raleway } from 'next/font/google';
 import { HydrationSuppressionProvider } from '@/components/HydrationSuppressionProvider';
 import dynamic from 'next/dynamic';
 
-// Dynamically import CustomCursor with no SSR
-const CustomCursor = dynamic(() => import('@/components/CustomCursor').then(mod => ({ default: mod.CustomCursor })), { ssr: false });
-const AnimatedBackground = dynamic(() => import('@/components/AnimatedBackground').then(mod => ({ default: mod.AnimatedBackground })), { ssr: false });
+// Dynamically import components with no SSR to avoid hydration issues
+const CustomCursor = dynamic(
+  () => import('@/components/CustomCursor').then(mod => ({ default: mod.CustomCursor })), 
+  { ssr: false }
+);
 
+const AnimatedBackground = dynamic(
+  () => import('@/components/AnimatedBackground').then(mod => ({ default: mod.AnimatedBackground })), 
+  { ssr: false }
+);
+
+// Optimize font loading
 const inter = Inter({ 
   subsets: ['latin'], 
   variable: '--font-inter',

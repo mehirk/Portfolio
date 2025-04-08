@@ -7,12 +7,25 @@ import { Suspense, useRef, useState, useEffect } from 'react';
 // Dynamically import components with optimized loading
 const Sidebar = dynamic(() => import('@/components/Sidebar'), { ssr: false });
 const Footer = dynamic(() => import('@/components/Footer'), { ssr: false });
-const HeroSection = dynamic(() => import('@/components/sections/HeroSection').then(mod => ({ default: mod.HeroSection })), { ssr: false });
-const AboutSection = dynamic(() => import('@/components/sections/AboutSection').then(mod => ({ default: mod.AboutSection })), { ssr: false });
-const SkillsSection = dynamic(() => import('@/components/sections/SkillsSection').then(mod => ({ default: mod.SkillsSection })), { ssr: false });
-const ProjectsSection = dynamic(() => import('@/components/sections/ProjectsSection').then(mod => ({ default: mod.ProjectsSection })), { ssr: false });
-const ContactSection = dynamic(() => import('@/components/sections/ContactSection').then(mod => ({ default: mod.ContactSection })), { ssr: false });
-const InteractionDemo = dynamic(() => import('@/components/sections/InteractionDemo').then(mod => ({ default: mod.InteractionDemo })), { ssr: false });
+const HeroSection = dynamic(() => import('@/components/sections/HeroSection').then(mod => ({ default: mod.HeroSection })), { 
+  ssr: false,
+  loading: () => <LoadingSkeleton />
+});
+const AboutSection = dynamic(() => import('@/components/sections/AboutSection').then(mod => ({ default: mod.AboutSection })), { 
+  ssr: false 
+});
+const SkillsSection = dynamic(() => import('@/components/sections/SkillsSection').then(mod => ({ default: mod.SkillsSection })), { 
+  ssr: false 
+});
+const ProjectsSection = dynamic(() => import('@/components/sections/ProjectsSection').then(mod => ({ default: mod.ProjectsSection })), { 
+  ssr: false 
+});
+const ContactSection = dynamic(() => import('@/components/sections/ContactSection').then(mod => ({ default: mod.ContactSection })), { 
+  ssr: false 
+});
+const InteractionDemo = dynamic(() => import('@/components/sections/InteractionDemo').then(mod => ({ default: mod.InteractionDemo })), { 
+  ssr: false 
+});
 
 // Loading fallback component
 const LoadingSkeleton = () => (
@@ -29,7 +42,7 @@ export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollY } = useScroll();
   
-  // Set mounted state after component mounts
+  // Set mounted state after component mounts to avoid hydration issues
   useEffect(() => {
     setIsMounted(true);
   }, []);
