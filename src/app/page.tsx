@@ -7,11 +7,25 @@ import { Suspense, useRef, useState, useEffect } from 'react';
 // Dynamically import components with optimized loading
 const Sidebar = dynamic(() => import('@/components/Sidebar'), { ssr: false });
 const Footer = dynamic(() => import('@/components/Footer'), { ssr: false });
-const HeroSection = dynamic(() => import('@/components/sections/HeroSection').then(mod => ({ default: mod.HeroSection })), { ssr: false });
-const AboutSection = dynamic(() => import('@/components/sections/AboutSection').then(mod => ({ default: mod.AboutSection })), { ssr: false });
-const SkillsSection = dynamic(() => import('@/components/sections/SkillsSection').then(mod => ({ default: mod.SkillsSection })), { ssr: false });
-const ProjectsSection = dynamic(() => import('@/components/sections/ProjectsSection').then(mod => ({ default: mod.ProjectsSection })), { ssr: false });
-const ContactSection = dynamic(() => import('@/components/sections/ContactSection').then(mod => ({ default: mod.ContactSection })), { ssr: false });
+const HeroSection = dynamic(() => import('@/components/sections/HeroSection').then(mod => ({ default: mod.HeroSection })), { 
+  ssr: false,
+  loading: () => <LoadingSkeleton />
+});
+const AboutSection = dynamic(() => import('@/components/sections/AboutSection').then(mod => ({ default: mod.AboutSection })), { 
+  ssr: false 
+});
+const SkillsSection = dynamic(() => import('@/components/sections/SkillsSection').then(mod => ({ default: mod.SkillsSection })), { 
+  ssr: false 
+});
+const ProjectsSection = dynamic(() => import('@/components/sections/ProjectsSection').then(mod => ({ default: mod.ProjectsSection })), { 
+  ssr: false 
+});
+const ContactSection = dynamic(() => import('@/components/sections/ContactSection').then(mod => ({ default: mod.ContactSection })), { 
+  ssr: false 
+});
+const InteractionDemo = dynamic(() => import('@/components/sections/InteractionDemo').then(mod => ({ default: mod.InteractionDemo })), { 
+  ssr: false 
+});
 
 // Loading fallback component
 const LoadingSkeleton = () => (
@@ -28,7 +42,7 @@ export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollY } = useScroll();
   
-  // Set mounted state after component mounts
+  // Set mounted state after component mounts to avoid hydration issues
   useEffect(() => {
     setIsMounted(true);
   }, []);
@@ -55,9 +69,6 @@ export default function Home() {
         </Suspense>
         <div className="flex-1 pl-64 md:pl-72 relative">
           <main className="min-h-screen" ref={containerRef}>
-            {/* Background effects */}
-            <div className="fixed inset-0 animated-gradient-bg color-shift-elegant opacity-20 pointer-events-none"></div>
-            
             {/* Content */}
             <div className="relative z-10">
               <Suspense fallback={<LoadingSkeleton />}>
@@ -65,6 +76,7 @@ export default function Home() {
                 <AboutSection />
                 <SkillsSection />
                 <ProjectsSection />
+                <InteractionDemo />
                 <ContactSection />
                 <Footer />
               </Suspense>

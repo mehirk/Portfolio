@@ -9,6 +9,7 @@ import {
   CodeBracketIcon,
   BriefcaseIcon,
   EnvelopeIcon,
+  PuzzlePieceIcon,
 } from '@heroicons/react/24/outline';
 
 // Types
@@ -24,6 +25,7 @@ const navItems: NavItem[] = [
   { id: 'about', label: 'About', icon: <UserIcon className="w-5 h-5" /> },
   { id: 'skills', label: 'Skills', icon: <CodeBracketIcon className="w-5 h-5" /> },
   { id: 'projects', label: 'Projects', icon: <BriefcaseIcon className="w-5 h-5" /> },
+  { id: 'interactions-demo', label: 'Playground', icon: <PuzzlePieceIcon className="w-5 h-5" /> },
   { id: 'contact', label: 'Contact', icon: <EnvelopeIcon className="w-5 h-5" /> }
 ];
 
@@ -180,20 +182,36 @@ export default function Sidebar() {
     const currentSectionRef = { current: 'home' };
     
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const sectionId = entry.target.id;
-          if (currentSectionRef.current !== sectionId) {
-            currentSectionRef.current = sectionId;
-            setActiveSection(sectionId);
-          }
+      // Filter for elements that are intersecting
+      const intersectingEntries = entries.filter(entry => entry.isIntersecting);
+      
+      // If we have intersecting entries, find the one with the highest intersection ratio
+      if (intersectingEntries.length > 0) {
+        // Sort by intersection ratio (highest first)
+        const mostVisibleEntry = intersectingEntries.reduce((prev, current) => {
+          return current.intersectionRatio > prev.intersectionRatio ? current : prev;
+        }, intersectingEntries[0]);
+        
+        const sectionId = mostVisibleEntry.target.id;
+        
+        // Special handling for the contact section which might be difficult to detect
+        if (sectionId === 'contact') {
+          setActiveSection('contact');
+          currentSectionRef.current = 'contact';
+        } else if (currentSectionRef.current !== sectionId) {
+          currentSectionRef.current = sectionId;
+          setActiveSection(sectionId);
         }
-      });
+      }
     };
     
     observerRef.current = new IntersectionObserver(
       observerCallback, 
-      { root: null, rootMargin: '-10% 0px -70% 0px', threshold: 0.1 }
+      { 
+        root: null, 
+        rootMargin: '0px 0px -45% 0px', 
+        threshold: [0.2, 0.4, 0.6, 0.8] 
+      }
     );
     
     // Observe all sections
@@ -202,7 +220,24 @@ export default function Sidebar() {
       observerRef.current?.observe(section);
     });
     
-    return () => observerRef.current?.disconnect();
+    // Add additional scroll listener specifically for contact section
+    const handleScroll = () => {
+      const contactSection = document.getElementById('contact');
+      if (contactSection) {
+        const rect = contactSection.getBoundingClientRect();
+        const isVisible = rect.top < window.innerHeight && rect.bottom >= 0;
+        if (isVisible && window.scrollY + window.innerHeight > document.body.scrollHeight - 100) {
+          setActiveSection('contact');
+        }
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    return () => {
+      observerRef.current?.disconnect();
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
   
   const handleNavClick = (id: string) => {

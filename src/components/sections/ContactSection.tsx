@@ -6,6 +6,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
+import { TiltCard } from '@/components/TiltCard';
+import { AnimatedText } from '@/components/AnimatedText';
 
 // Types
 interface FormInput {
@@ -124,29 +126,39 @@ export function ContactSection() {
   const [isClient, setIsClient] = useState(false);
   
   useEffect(() => {
-    // Delay setting isClient to true to avoid hydration mismatch
-    const timer = setTimeout(() => {
-      setIsClient(true);
-    }, 10);
+    // Set client-side rendering flag immediately
+    setIsClient(true);
     
-    return () => clearTimeout(timer);
+    return () => {
+      // Cleanup function
+    };
   }, []);
   
   const validateForm = (): boolean => {
-    const validations = {
-      name: formState.name.trim() ? '' : 'Name is required',
-      email: !formState.email.trim() 
-        ? 'Email is required' 
-        : !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formState.email) 
-          ? 'Valid email is required' 
-          : '',
-      subject: formState.subject.trim() ? '' : 'Subject is required',
-      message: formState.message.trim() ? '' : 'Message is required'
-    };
+    const newErrors: Partial<FormInput> = {};
     
-    const newErrors = Object.fromEntries(
-      Object.entries(validations).filter(([_, value]) => value)
-    );
+    // Name validation
+    if (!formState.name.trim()) {
+      newErrors.name = 'Name is required';
+    }
+    
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formState.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!emailRegex.test(formState.email)) {
+      newErrors.email = 'Valid email is required';
+    }
+    
+    // Subject validation
+    if (!formState.subject.trim()) {
+      newErrors.subject = 'Subject is required';
+    }
+    
+    // Message validation
+    if (!formState.message.trim()) {
+      newErrors.message = 'Message is required';
+    }
     
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -156,25 +168,35 @@ export function ContactSection() {
     const { name, value } = e.target;
     setFormState(prev => ({ ...prev, [name]: value }));
     
+    // Clear error for this field when user starts typing
     if (errors[name as keyof FormInput]) {
       setErrors(prev => ({ ...prev, [name]: undefined }));
     }
   };
   
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    
     if (!validateForm()) return;
     
     setIsSubmitting(true);
     
-    // Simulated form submission
-    setTimeout(() => {
+    try {
+      // Simulated form submission with proper error handling
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Reset form on success
       setFormState(initialFormState);
-      setIsSubmitting(false);
       setIsSuccess(true);
       
+      // Reset success message after delay
       setTimeout(() => setIsSuccess(false), 5000);
-    }, 1000);
+    } catch (error) {
+      console.error('Form submission error:', error);
+      // Could set a general submission error here if needed
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const formFields = [
@@ -185,25 +207,28 @@ export function ContactSection() {
   ];
 
   return (
-    <section id="contact" className="py-20 md:py-32 bg-black">
-      <div className="container mx-auto px-4">
+    <section id="contact" className="py-20 md:py-32 relative">
+      <div className="container mx-auto px-4 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-white text-center">Get In Touch</h2>
+          <div className="text-center mb-12">
+            <AnimatedText 
+              text="Get In Touch"
+              className="text-3xl md:text-4xl font-bold text-white justify-center"
+              once={true}
+            />
+          </div>
+          
           <div className="max-w-4xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
-              <motion.a
-                href="mailto:mehirk28@gmail.com"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.1 }}
-                whileHover={{ y: -5 }}
+              <TiltCard
                 className="bg-zinc-900/50 border border-zinc-800 rounded-lg p-6 flex flex-col items-center text-center"
+                glareOpacity={0.1}
+                tiltFactor={8}
               >
                 <div className="w-12 h-12 rounded-full bg-indigo-500/10 flex items-center justify-center mb-4">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -212,15 +237,13 @@ export function ContactSection() {
                 </div>
                 <h3 className="text-lg font-semibold text-white mb-1">Email</h3>
                 <p className="text-zinc-400">mehirk28@gmail.com</p>
-              </motion.a>
+                <a href="mailto:mehirk28@gmail.com" className="absolute inset-0" aria-label="Send email"></a>
+              </TiltCard>
               
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.3 }}
-                whileHover={{ y: -5 }}
+              <TiltCard
                 className="bg-zinc-900/50 border border-zinc-800 rounded-lg p-6 flex flex-col items-center text-center"
+                glareOpacity={0.1}
+                tiltFactor={8}
               >
                 <div className="w-12 h-12 rounded-full bg-emerald-500/10 flex items-center justify-center mb-4">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -230,15 +253,14 @@ export function ContactSection() {
                 </div>
                 <h3 className="text-lg font-semibold text-white mb-1">Location</h3>
                 <p className="text-zinc-400">Wolfville, Nova Scotia</p>
-              </motion.div>
+              </TiltCard>
             </div>
             
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
+            <TiltCard
               className="bg-zinc-900/50 border border-zinc-800 rounded-lg p-8 backdrop-blur-sm"
+              glareOpacity={0.05}
+              tiltFactor={2}
+              perspective={2000}
             >
               {isSuccess ? (
                 <SuccessMessage />
@@ -300,7 +322,7 @@ export function ContactSection() {
               ) : (
                 <FormLoadingPlaceholder />
               )}
-            </motion.div>
+            </TiltCard>
           </div>
         </motion.div>
       </div>

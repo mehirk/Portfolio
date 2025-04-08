@@ -1,6 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { TiltCard } from '@/components/TiltCard';
+import { AnimatedText } from '@/components/AnimatedText';
 
 // Timeline entry interface
 interface TimelineEntry {
@@ -79,13 +81,19 @@ export function AboutSection() {
           transition={{ duration: 0.8 }}
           className="max-w-5xl mx-auto"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-10 text-white text-center">About Me</h2>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6 }}
+          <div className="text-center mb-10">
+            <AnimatedText
+              text="About Me"
+              className="text-3xl md:text-4xl font-bold text-white justify-center"
+              once={true}
+            />
+          </div>
+          
+          <TiltCard 
             className="bg-zinc-900/50 border border-zinc-800 rounded-lg p-8 backdrop-blur-sm"
+            glareOpacity={0.05}
+            tiltFactor={3}
+            perspective={1500}
           >
             <div className="flex flex-col md:flex-row gap-10 items-start">
               <div className="w-full">
@@ -125,7 +133,11 @@ export function AboutSection() {
                 </div>
                 
                 <div className="mb-6">
-                  <h4 className="text-lg font-medium text-white mb-4">Education</h4>
+                  <AnimatedText
+                    text="Education"
+                    className="text-lg font-medium text-white mb-4 justify-start"
+                    once={true}
+                  />
                   <div className="bg-zinc-800/50 rounded-lg p-4 border border-zinc-700/50">
                     <h5 className="text-white font-medium">Bachelor of Computer Science</h5>
                     <p className="text-zinc-300 text-sm">Acadia University, Wolfville, Nova Scotia</p>
@@ -136,7 +148,11 @@ export function AboutSection() {
                   </div>
                 </div>
                 
-                <h4 className="text-lg font-medium text-white mb-4">Experience</h4>
+                <AnimatedText
+                  text="Experience"
+                  className="text-lg font-medium text-white mb-4 justify-start"
+                  once={true}
+                />
                 <div className="space-y-6 mb-6">
                   {timelineData.map((entry, index) => (
                     <TimelineEntry key={entry.year + entry.title} entry={entry} index={index} />
@@ -155,7 +171,7 @@ export function AboutSection() {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </TiltCard>
         </motion.div>
       </div>
     </section>
