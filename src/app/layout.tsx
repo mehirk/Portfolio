@@ -5,11 +5,6 @@ import { HydrationSuppressionProvider } from '@/components/HydrationSuppressionP
 import dynamic from 'next/dynamic';
 
 // Dynamically import components with no SSR to avoid hydration issues
-const CustomCursor = dynamic(
-  () => import('@/components/CustomCursor').then(mod => ({ default: mod.CustomCursor })), 
-  { ssr: false }
-);
-
 const AnimatedBackground = dynamic(
   () => import('@/components/AnimatedBackground').then(mod => ({ default: mod.AnimatedBackground })), 
   { ssr: false }
@@ -53,7 +48,6 @@ export default function RootLayout({
         <HydrationSuppressionProvider>
           <div className="relative min-h-screen flex flex-col">
             <AnimatedBackground />
-            <CustomCursor />
             {children}
           </div>
         </HydrationSuppressionProvider>
