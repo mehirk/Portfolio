@@ -167,6 +167,7 @@ export function ProjectsSection() {
             <AnimatedText 
               text="Featured Projects"
               className="text-3xl md:text-4xl font-bold mb-4 text-white justify-center"
+              once={true}
             />
           </div>
           <div className="h-1 w-24 mx-auto bg-gradient-to-r from-indigo-400/50 to-blue-400/50 rounded-full mb-12"></div>

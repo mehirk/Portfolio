@@ -68,7 +68,8 @@ const SkillCard = ({ icon, title, skills, color, borderColor, iconBgColor }: Ski
           key={index}
           initial={{ opacity: 0, x: -10 }}
           whileInView={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.1 * index }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.05 * index }}
           className="text-zinc-300 flex items-center"
         >
           <span className={`w-1.5 h-1.5 ${color.replace('text', 'bg')} rounded-full mr-3`}></span>
@@ -94,6 +95,7 @@ export function SkillsSection() {
             <AnimatedText 
               text="Skills & Expertise"
               className="text-3xl md:text-4xl font-bold mb-4 text-white justify-center"
+              once={true}
             />
           </div>
           <div className="h-1 w-24 mx-auto bg-gradient-to-r from-cyan-400/50 to-blue-400/50 rounded-full mb-12"></div>

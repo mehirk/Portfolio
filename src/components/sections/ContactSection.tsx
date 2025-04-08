@@ -199,6 +199,7 @@ export function ContactSection() {
             <AnimatedText 
               text="Get In Touch"
               className="text-3xl md:text-4xl font-bold text-white justify-center"
+              once={true}
             />
           </div>
           

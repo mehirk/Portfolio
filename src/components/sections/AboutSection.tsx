@@ -85,6 +85,7 @@ export function AboutSection() {
             <AnimatedText
               text="About Me"
               className="text-3xl md:text-4xl font-bold text-white justify-center"
+              once={true}
             />
           </div>
           
@@ -135,7 +136,7 @@ export function AboutSection() {
                   <AnimatedText
                     text="Education"
                     className="text-lg font-medium text-white mb-4 justify-start"
-                    delay={2}
+                    once={true}
                   />
                   <div className="bg-zinc-800/50 rounded-lg p-4 border border-zinc-700/50">
                     <h5 className="text-white font-medium">Bachelor of Computer Science</h5>
@@ -150,7 +151,7 @@ export function AboutSection() {
                 <AnimatedText
                   text="Experience"
                   className="text-lg font-medium text-white mb-4 justify-start"
-                  delay={3}
+                  once={true}
                 />
                 <div className="space-y-6 mb-6">
                   {timelineData.map((entry, index) => (

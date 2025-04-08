@@ -104,17 +104,18 @@ export function HeroSection({ scrollY }: HeroSectionProps) {
             <AnimatedText
               text="Mehir Kumar"
               className="text-5xl md:text-7xl font-bold mb-2 text-white justify-center"
+              once={true}
             />
             <div className="h-1 w-32 mx-auto bg-gradient-to-r from-indigo-400/70 via-blue-400/70 to-cyan-400/70 rounded-full glow-effect"></div>
           </motion.div>
-          <motion.p 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-            className="text-xl text-zinc-200 mb-10 leading-relaxed text-readability-shadow"
-          >
-            Computer Science Student at Acadia University
-          </motion.p>
+          
+          <AnimatedText
+            text="Computer Science Student at Acadia University"
+            className="text-xl text-zinc-200 mb-10 leading-relaxed text-readability-shadow justify-center"
+            once={true}
+            delay={3}
+          />
+          
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <motion.div
               whileHover={{ scale: 1.05 }}
