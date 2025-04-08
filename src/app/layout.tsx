@@ -16,8 +16,11 @@ const raleway = Raleway({
 });
 
 export const metadata: Metadata = {
-  title: "Mehir's Portfolio",
-  description: 'Professional portfolio showcasing skills, projects, and experience',
+  title: "Mehir Kumar | Portfolio",
+  description: 'Professional portfolio showcasing skills, projects, and experience of Mehir Kumar, a Computer Science student at Acadia University',
+  icons: {
+    icon: '/logo/logo.svg'
+  },
 };
 
 export default function RootLayout({
@@ -27,6 +30,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark scroll-smooth">
+      <head>
+        <link rel="icon" href="/logo/logo.svg" sizes="any" />
+      </head>
       <body 
         className={`${inter.variable} ${raleway.variable} font-sans antialiased`} 
         suppressHydrationWarning

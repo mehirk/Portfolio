@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef, memo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -12,7 +11,6 @@ import {
   BriefcaseIcon,
   EnvelopeIcon,
   MagnifyingGlassIcon,
-  Cog6ToothIcon
 } from '@heroicons/react/24/outline';
 
 // Types
@@ -60,6 +58,36 @@ const SocialIcons = memo(({ className = "" }: { className?: string }) => {
 
 SocialIcons.displayName = 'SocialIcons';
 
+// Logo component
+const Logo = () => {
+  return (
+    <svg 
+      width="80" 
+      height="80" 
+      viewBox="0 0 80 80" 
+      fill="none" 
+      xmlns="http://www.w3.org/2000/svg" 
+      className="mx-auto"
+    >
+      <rect width="80" height="80" rx="10" fill="url(#paint0_linear)" />
+      <path d="M25 22L40 15L55 22V32C55 42.3 48.68 51.62 40 54C31.32 51.62 25 42.3 25 32V22Z" fill="url(#paint1_linear)" stroke="white" strokeWidth="1.5" />
+      <path d="M32 35L38 41L48 31" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M20 60H60" stroke="white" strokeWidth="2" strokeLinecap="round" />
+      <path d="M28 67H52" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+      <defs>
+        <linearGradient id="paint0_linear" x1="0" y1="0" x2="80" y2="80" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#4F46E5" />
+          <stop offset="1" stopColor="#7C3AED" />
+        </linearGradient>
+        <linearGradient id="paint1_linear" x1="25" y1="15" x2="55" y2="54" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#8B5CF6" stopOpacity="0.3" />
+          <stop offset="1" stopColor="#4F46E5" stopOpacity="0.1" />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+};
+
 // Desktop sidebar component
 const DesktopSidebar = memo(({ activeSection, searchValue, handleSearch, handleNavClick }: {
   activeSection: string;
@@ -70,9 +98,13 @@ const DesktopSidebar = memo(({ activeSection, searchValue, handleSearch, handleN
   return (
     <div className="hidden md:flex w-64 fixed top-5 left-5 bottom-5 flex-col bg-zinc-900/80 backdrop-blur-md border border-zinc-800/50 rounded-2xl shadow-lg z-50 overflow-hidden">
       <div className="p-6 flex flex-col items-center border-b border-zinc-800/50">
-        <Avatar className="w-20 h-20 mb-3 border-2 border-zinc-700/50">
-          <AvatarFallback className="bg-gradient-to-br from-purple-500/20 to-blue-500/20 text-white text-2xl font-raleway">MK</AvatarFallback>
-        </Avatar>
+        <motion.div 
+          whileHover={{ scale: 1.05 }}
+          transition={{ type: "spring", stiffness: 300 }}
+          className="mb-4"
+        >
+          <Logo />
+        </motion.div>
         
         <h2 className="text-white font-semibold text-xl font-raleway">
           Mehir Kumar
