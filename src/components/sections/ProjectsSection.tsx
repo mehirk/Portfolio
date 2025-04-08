@@ -244,8 +244,6 @@ const containerVariants = {
 export function ProjectsSection() {
   return (
     <section id="projects" className="py-20 md:py-32 relative">
-      <div className="absolute inset-0 bg-black pointer-events-none"></div>
-      
       <div className="container mx-auto px-4 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

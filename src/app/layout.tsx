@@ -6,6 +6,7 @@ import dynamic from 'next/dynamic';
 
 // Dynamically import CustomCursor with no SSR
 const CustomCursor = dynamic(() => import('@/components/CustomCursor').then(mod => ({ default: mod.CustomCursor })), { ssr: false });
+const AnimatedBackground = dynamic(() => import('@/components/AnimatedBackground').then(mod => ({ default: mod.AnimatedBackground })), { ssr: false });
 
 const inter = Inter({ 
   subsets: ['latin'], 
@@ -43,8 +44,7 @@ export default function RootLayout({
       >
         <HydrationSuppressionProvider>
           <div className="relative min-h-screen flex flex-col">
-            <div className="fixed inset-0 bg-black pointer-events-none -z-10"></div>
-            <div className="fixed inset-0 star-bg opacity-5 pointer-events-none -z-10"></div>
+            <AnimatedBackground />
             <CustomCursor />
             {children}
           </div>
