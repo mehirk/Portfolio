@@ -25,13 +25,19 @@ export const FlipCard = ({
 }: FlipCardProps) => {
   const [isFlipped, setIsFlipped] = useState(false);
 
-  const handleFlip = () => {
-    setIsFlipped(!isFlipped);
+  const handleFlip = (e: React.MouseEvent) => {
+    // Only flip if the click was directly on the card container, not on interactive elements
+    if ((e.target as HTMLElement).tagName !== 'BUTTON' && 
+        (e.target as HTMLElement).tagName !== 'A' &&
+        !(e.target as HTMLElement).closest('button') && 
+        !(e.target as HTMLElement).closest('a')) {
+      setIsFlipped(!isFlipped);
+    }
   };
 
   return (
     <div 
-      className={`flip-card ${className}`} 
+      className={`flip-card ${className} cursor-pointer`} 
       style={{ 
         width, 
         height,

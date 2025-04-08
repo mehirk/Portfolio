@@ -281,11 +281,7 @@ export function ProjectsSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <FlipCard 
-                className={`h-[420px] sm:h-[450px] rounded-xl border border-white/5 shadow-glow-sm bg-gradient-to-br ${project.color} backdrop-blur-sm`}
-                frontContent={<ProjectCard {...project} />}
-                backContent={<ProjectCard {...project} />}
-              />
+              <ProjectCard {...project} />
             </motion.div>
           ))}
         </div>
