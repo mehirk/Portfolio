@@ -56,9 +56,6 @@ export default function Home() {
         </Suspense>
         <div className="flex-1 pl-64 md:pl-72 relative">
           <main className="min-h-screen" ref={containerRef}>
-            {/* Background effects */}
-            <div className="fixed inset-0 animated-gradient-bg color-shift-elegant opacity-20 pointer-events-none"></div>
-            
             {/* Content */}
             <div className="relative z-10">
               <Suspense fallback={<LoadingSkeleton />}>

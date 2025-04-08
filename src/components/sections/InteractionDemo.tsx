@@ -86,13 +86,17 @@ export function InteractionDemo() {
   const [activeTab, setActiveTab] = useState<'tilt' | 'magnetic' | 'text' | 'handwriting' | 'flip'>('tilt');
   
   return (
-    <section id="interactions-demo" className="py-24 relative overflow-hidden">
-      <div className="container px-4 mx-auto">
+    <section id="interactions-demo" className="py-20 md:py-32 relative overflow-hidden">
+      <div className="container mx-auto px-4 relative z-10">
         <FadeInView>
-          <AnimatedText
-            text="Interaction Playground"
-            className="text-3xl md:text-5xl font-bold text-center mb-4"
-          />
+          <div className="text-center">
+            <AnimatedText
+              text="Interaction Playground"
+              className="text-3xl md:text-4xl font-bold mb-4 text-white justify-center"
+              once={true}
+            />
+          </div>
+          <div className="h-1 w-24 mx-auto bg-gradient-to-r from-purple-400/60 to-indigo-400/60 rounded-full mb-12"></div>
           <p className="text-zinc-400 text-center max-w-2xl mx-auto mb-12">
             Explore these interactive elements to experience some of the micro-interactions
             that make this portfolio stand out.

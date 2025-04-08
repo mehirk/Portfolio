@@ -9,6 +9,7 @@ import {
   CodeBracketIcon,
   BriefcaseIcon,
   EnvelopeIcon,
+  PuzzlePieceIcon,
 } from '@heroicons/react/24/outline';
 
 // Types
@@ -24,6 +25,7 @@ const navItems: NavItem[] = [
   { id: 'about', label: 'About', icon: <UserIcon className="w-5 h-5" /> },
   { id: 'skills', label: 'Skills', icon: <CodeBracketIcon className="w-5 h-5" /> },
   { id: 'projects', label: 'Projects', icon: <BriefcaseIcon className="w-5 h-5" /> },
+  { id: 'interactions-demo', label: 'Playground', icon: <PuzzlePieceIcon className="w-5 h-5" /> },
   { id: 'contact', label: 'Contact', icon: <EnvelopeIcon className="w-5 h-5" /> }
 ];
 
