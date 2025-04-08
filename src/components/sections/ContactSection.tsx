@@ -195,7 +195,7 @@ export function ContactSection() {
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-12 text-white text-center">Get In Touch</h2>
           <div className="max-w-4xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-10">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
               <motion.a
                 href="mailto:mehirk28@gmail.com"
                 initial={{ opacity: 0, y: 20 }}
@@ -212,24 +212,6 @@ export function ContactSection() {
                 </div>
                 <h3 className="text-lg font-semibold text-white mb-1">Email</h3>
                 <p className="text-zinc-400">mehirk28@gmail.com</p>
-              </motion.a>
-              
-              <motion.a
-                href="tel:+19022238205"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.2 }}
-                whileHover={{ y: -5 }}
-                className="bg-zinc-900/50 border border-zinc-800 rounded-lg p-6 flex flex-col items-center text-center"
-              >
-                <div className="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center mb-4">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M21.9999 16.9201V19.9201C22.0026 20.1986 21.9448 20.4743 21.8299 20.7294C21.7149 20.9846 21.5457 21.2137 21.3337 21.402C21.1217 21.5902 20.8724 21.7336 20.6036 21.8228C20.3349 21.912 20.0529 21.9452 19.7739 21.9201C16.6129 21.5857 13.5899 20.5342 10.9699 18.8501C8.55737 17.3148 6.52866 15.2861 5.00992 12.8701C3.32991 10.2399 2.27742 7.2135 1.94992 4.0501C1.92485 3.77212 1.95769 3.49032 2.04644 3.22173C2.13519 2.95315 2.27795 2.70426 2.46543 2.49261C2.65291 2.28096 2.88127 2.11217 3.13576 1.99761C3.39024 1.88306 3.66524 1.82568 3.94392 1.83011H6.94392C7.43323 1.82563 7.90748 2.00303 8.28273 2.32513C8.65798 2.64723 8.90199 3.09448 8.96992 3.5801C9.10058 4.53778 9.36358 5.47534 9.74992 6.3701C9.88563 6.6736 9.92421 7.00922 9.86103 7.33465C9.79784 7.66008 9.63584 7.95833 9.39992 8.1901L8.24992 9.3401C9.6534 11.8576 11.7349 13.9421 14.2499 15.3501L15.3999 14.2001C15.6317 13.9642 15.9299 13.8022 16.2553 13.739C16.5808 13.6758 16.9164 13.7144 17.2199 13.8501C18.1146 14.2364 19.0522 14.4994 19.9999 14.6301C20.4922 14.6992 20.944 14.9469 21.2662 15.3276C21.5885 15.7084 21.7612 16.1885 21.7499 16.6801L21.9999 16.9201Z" stroke="#60A5FA" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </div>
-                <h3 className="text-lg font-semibold text-white mb-1">Phone</h3>
-                <p className="text-zinc-400">(902) 223-8205</p>
               </motion.a>
               
               <motion.div

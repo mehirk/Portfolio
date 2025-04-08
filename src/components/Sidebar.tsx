@@ -3,14 +3,12 @@
 import { useState, useEffect, useRef, memo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import {
   HomeIcon,
   UserIcon,
   CodeBracketIcon,
   BriefcaseIcon,
   EnvelopeIcon,
-  MagnifyingGlassIcon,
 } from '@heroicons/react/24/outline';
 
 // Types
@@ -89,10 +87,8 @@ const Logo = () => {
 };
 
 // Desktop sidebar component
-const DesktopSidebar = memo(({ activeSection, searchValue, handleSearch, handleNavClick }: {
+const DesktopSidebar = memo(({ activeSection, handleNavClick }: {
   activeSection: string;
-  searchValue: string;
-  handleSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleNavClick: (id: string) => void;
 }) => {
   return (
@@ -114,20 +110,7 @@ const DesktopSidebar = memo(({ activeSection, searchValue, handleSearch, handleN
         </p>
       </div>
       
-      <div className="px-4 py-4">
-        <div className="relative">
-          <MagnifyingGlassIcon className="w-4 h-4 absolute top-3 left-3 text-zinc-400" />
-          <Input
-            type="text"
-            placeholder="Search..."
-            value={searchValue}
-            onChange={handleSearch}
-            className="bg-zinc-800/30 border-zinc-700/50 pl-9 text-white placeholder:text-zinc-500 text-sm focus:border-purple-500/50 focus:ring-0"
-          />
-        </div>
-      </div>
-      
-      <nav className="px-3 py-2 flex-1 overflow-y-auto scrollbar-thin">
+      <nav className="px-3 py-4 flex-1 overflow-y-auto scrollbar-thin">
         <ul className="space-y-1">
           {navItems.map((item) => (
             <li key={item.id}>
@@ -190,7 +173,6 @@ MobileNavbar.displayName = 'MobileNavbar';
 
 export default function Sidebar() {
   const [activeSection, setActiveSection] = useState('home');
-  const [searchValue, setSearchValue] = useState('');
   const observerRef = useRef<IntersectionObserver | null>(null);
   
   // Set up intersection observer for scroll spy
@@ -223,10 +205,6 @@ export default function Sidebar() {
     return () => observerRef.current?.disconnect();
   }, []);
   
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(e.target.value);
-  };
-  
   const handleNavClick = (id: string) => {
     setActiveSection(id);
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
@@ -236,8 +214,6 @@ export default function Sidebar() {
     <>
       <DesktopSidebar 
         activeSection={activeSection}
-        searchValue={searchValue}
-        handleSearch={handleSearch}
         handleNavClick={handleNavClick}
       />
       <MobileNavbar 

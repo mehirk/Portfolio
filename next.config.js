@@ -16,25 +16,7 @@ const nextConfig = {
     maxInactiveAge: 25 * 1000,
     // number of pages that should be kept simultaneously without being disposed
     pagesBufferLength: 2,
-  },
-}
-
-// Suppress hydration warnings from browser extensions
-if (typeof window !== 'undefined') {
-  // This will only run on the client side
-  const originalConsoleError = console.error;
-  console.error = (...args) => {
-    if (
-      typeof args[0] === 'string' &&
-      (args[0].includes('Warning: Text content did not match') ||
-      args[0].includes('Warning: Prop `className` did not match') ||
-      args[0].includes('Warning: A tree hydrated but some attributes') ||
-      args[0].includes('Hydration failed because'))
-    ) {
-      return;
-    }
-    originalConsoleError(...args);
-  };
+  }
 }
 
 module.exports = nextConfig 

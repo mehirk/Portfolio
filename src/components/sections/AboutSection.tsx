@@ -13,6 +13,12 @@ interface TimelineEntry {
 // Timeline data
 const timelineData: TimelineEntry[] = [
   {
+    year: '2024',
+    title: 'Technology Services Student Service Desk Assistant',
+    description: 'Acadia University, Wolfville, NS, Canada - Providing technical support to students, faculty, and staff.',
+    color: 'text-amber-400'
+  },
+  {
     year: '2023',
     title: 'IT Intern with Junior Software Development Focus',
     description: 'Alucor LTD, Dubai, UAE - Engineered a secure Password Manager app using advanced encryption techniques.',
@@ -23,18 +29,6 @@ const timelineData: TimelineEntry[] = [
     title: 'Programmer and Social Media Manager',
     description: 'Vision Concept Aviation Training Institute, Dubai, UAE - Automated location plotting processes with Python.',
     color: 'text-blue-400'
-  },
-  {
-    year: '2022',
-    title: 'Flight Management System',
-    description: 'Developed a Python-based flight management system with robust CSV storage and MySQL integration.',
-    color: 'text-purple-400'
-  },
-  {
-    year: '2024',
-    title: 'Technology Services Student Service Desk Assistant',
-    description: 'Acadia University, Wolfville, NS, Canada - Providing technical support to students, faculty, and staff.',
-    color: 'text-amber-400'
   }
 ];
 
