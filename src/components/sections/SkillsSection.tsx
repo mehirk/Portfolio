@@ -61,7 +61,7 @@ const SkillCard = ({ icon, title, skills, color, borderColor, iconBgColor }: Ski
     <div className={`mb-6 w-14 h-14 rounded-full flex items-center justify-center ${iconBgColor} ${color}`}>
       {icon}
     </div>
-    <h3 className={`text-xl font-semibold mb-4 ${color} text-readability-shadow`}>{title}</h3>
+    <h3 className="text-xl font-semibold mb-4 text-white text-readability-shadow">{title}</h3>
     <ul className="space-y-3">
       {skills.map((skill, index) => (
         <motion.li 
@@ -81,7 +81,7 @@ const SkillCard = ({ icon, title, skills, color, borderColor, iconBgColor }: Ski
 
 export function SkillsSection() {
   return (
-    <section id="skills" className="py-20 md:py-32 bg-gradient-to-b from-transparent to-black/30">
+    <section id="skills" className="py-20 md:py-32 bg-black">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -91,9 +91,7 @@ export function SkillsSection() {
           className="relative"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white text-center">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 to-blue-300 text-readability-shadow">
-              Skills & Expertise
-            </span>
+            Skills & Expertise
           </h2>
           <div className="h-1 w-24 mx-auto bg-gradient-to-r from-cyan-400/50 to-blue-400/50 rounded-full mb-12"></div>
           

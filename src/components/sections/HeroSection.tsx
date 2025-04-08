@@ -65,24 +65,24 @@ export function HeroSection({ scrollY }: HeroSectionProps) {
   
   return (
     <section id="home" className="relative h-screen flex flex-col items-center justify-center overflow-hidden">
-      {/* Animated background elements */}
+      {/* Animated background elements - completely transparent now */}
       <motion.div 
         animate={backgroundVariants.animate1}
         transition={transitions.slow}
         style={{ willChange: "transform" }}
-        className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/5 rounded-full filter blur-3xl"
+        className="absolute top-1/4 left-1/4 w-96 h-96 bg-black/5 rounded-full filter blur-3xl"
       />
       <motion.div 
         animate={backgroundVariants.animate2}
         transition={transitions.medium}
         style={{ willChange: "transform" }}
-        className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/5 rounded-full filter blur-3xl"
+        className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-black/5 rounded-full filter blur-3xl"
       />
       <motion.div 
         animate={backgroundVariants.animate3}
         transition={transitions.fast}
         style={{ willChange: "transform" }}
-        className="absolute top-1/3 right-1/3 w-72 h-72 bg-cyan-500/5 rounded-full filter blur-3xl"
+        className="absolute top-1/3 right-1/3 w-72 h-72 bg-black/5 rounded-full filter blur-3xl"
       />
       
       <div className="container px-4 z-10">
@@ -100,10 +100,8 @@ export function HeroSection({ scrollY }: HeroSectionProps) {
             }}
             className="mb-6"
           >
-            <h1 className="text-5xl md:text-7xl font-bold mb-2">
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-blue-400 to-cyan-300 animated-gradient-bg text-readability-shadow">
-                Mehir Kumar
-              </span>
+            <h1 className="text-5xl md:text-7xl font-bold mb-2 text-white">
+              Mehir Kumar
             </h1>
             <div className="h-1 w-32 mx-auto bg-gradient-to-r from-indigo-400/70 via-blue-400/70 to-cyan-400/70 rounded-full glow-effect"></div>
           </motion.div>
@@ -151,15 +149,15 @@ export function HeroSection({ scrollY }: HeroSectionProps) {
       
       {/* Floating decorative elements */}
       <motion.div
-        className="absolute left-10 top-40 w-4 h-4 rounded-full bg-purple-500/30 float-animation"
+        className="absolute left-10 top-40 w-4 h-4 rounded-full bg-white/10 float-animation"
         style={{ animationDelay: '0s', willChange: "transform" }}
       />
       <motion.div
-        className="absolute right-20 top-60 w-3 h-3 rounded-full bg-blue-500/30 float-animation"
+        className="absolute right-20 top-60 w-3 h-3 rounded-full bg-white/10 float-animation"
         style={{ animationDelay: '1s', willChange: "transform" }}
       />
       <motion.div
-        className="absolute left-1/4 bottom-40 w-5 h-5 rounded-full bg-cyan-500/30 float-animation"
+        className="absolute left-1/4 bottom-40 w-5 h-5 rounded-full bg-white/10 float-animation"
         style={{ animationDelay: '2s', willChange: "transform" }}
       />
       
@@ -178,7 +176,7 @@ export function HeroSection({ scrollY }: HeroSectionProps) {
         onClick={handleScrollToAbout}
       >
         <div className="h-14 w-8 rounded-full border border-white/10 flex justify-center pt-2 cursor-pointer glass-effect sleek-shadow">
-          <div className="h-2 w-1 rounded-full bg-gradient-to-b from-indigo-400/80 to-blue-500/80 animate-bounce"></div>
+          <div className="h-2 w-1 rounded-full bg-white/70 animate-bounce"></div>
         </div>
       </motion.div>
     </section>
