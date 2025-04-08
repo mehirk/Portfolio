@@ -2,6 +2,13 @@ import '@/styles/globals.css';
 import type { Metadata } from 'next';
 import { Inter, Raleway } from 'next/font/google';
 import React from 'react';
+import dynamic from 'next/dynamic';
+
+// Dynamically import the AnimatedBackground component with no SSR
+const AnimatedBackground = dynamic(
+  () => import('@/components/AnimatedBackground'),
+  { ssr: false }
+);
 
 const inter = Inter({ 
   subsets: ['latin'], 
@@ -38,8 +45,8 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <div className="relative min-h-screen flex flex-col">
-          <div className="fixed inset-0 bg-zinc-950 pointer-events-none -z-10"></div>
-          <div className="fixed inset-0 star-bg opacity-10 pointer-events-none -z-10"></div>
+          {/* Replace the static background with the animated background */}
+          <AnimatedBackground />
           {children}
         </div>
       </body>

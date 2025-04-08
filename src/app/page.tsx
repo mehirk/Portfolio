@@ -1,6 +1,6 @@
 'use client';
 
-import { useScroll, LazyMotion, domAnimation } from 'framer-motion';
+import { useScroll, LazyMotion, domAnimation, motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import { Suspense, useRef, useState, useEffect } from 'react';
 
@@ -12,6 +12,84 @@ const AboutSection = dynamic(() => import('@/components/sections/AboutSection').
 const SkillsSection = dynamic(() => import('@/components/sections/SkillsSection').then(mod => ({ default: mod.SkillsSection })), { ssr: false });
 const ProjectsSection = dynamic(() => import('@/components/sections/ProjectsSection').then(mod => ({ default: mod.ProjectsSection })), { ssr: false });
 const ContactSection = dynamic(() => import('@/components/sections/ContactSection').then(mod => ({ default: mod.ContactSection })), { ssr: false });
+
+// Custom cursor component
+const CustomCursor = () => {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isPointer, setIsPointer] = useState(false);
+
+  useEffect(() => {
+    const mouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+      const target = e.target as HTMLElement;
+      setIsPointer(
+        window.getComputedStyle(target).cursor === 'pointer' || 
+        target.tagName === 'BUTTON' || 
+        target.tagName === 'A' || 
+        target.closest('button') !== null || 
+        target.closest('a') !== null
+      );
+    };
+
+    window.addEventListener('mousemove', mouseMove);
+    return () => window.removeEventListener('mousemove', mouseMove);
+  }, []);
+
+  return (
+    <motion.div
+      className="fixed top-0 left-0 w-6 h-6 rounded-full mix-blend-difference pointer-events-none z-50"
+      style={{ 
+        backgroundColor: 'rgb(var(--accent-purple))',
+        opacity: 0.7
+      }}
+      animate={{
+        x: mousePosition.x - 12,
+        y: mousePosition.y - 12,
+        scale: isPointer ? 1.5 : 1,
+      }}
+      transition={{
+        type: "spring",
+        mass: 0.1,
+        stiffness: 800,
+        damping: 20,
+      }}
+    />
+  );
+};
+
+// Floating particles effect
+const FloatingElements = () => {
+  return (
+    <div className="fixed inset-0 overflow-hidden pointer-events-none">
+      {[...Array(15)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute rounded-full"
+          style={{
+            width: Math.random() * 10 + 5,
+            height: Math.random() * 10 + 5,
+            backgroundColor: `rgba(var(--accent-${
+              ['purple', 'blue', 'cyan', 'teal'][Math.floor(Math.random() * 4)]
+            }), ${Math.random() * 0.2 + 0.1})`,
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+          }}
+          animate={{
+            y: [0, Math.random() * 100 - 50],
+            x: [0, Math.random() * 60 - 30],
+            rotate: [0, Math.random() * 360],
+          }}
+          transition={{
+            duration: Math.random() * 20 + 15,
+            repeat: Infinity,
+            repeatType: "reverse",
+            ease: "easeInOut",
+          }}
+        />
+      ))}
+    </div>
+  );
+};
 
 // Loading fallback component
 const LoadingSkeleton = () => (
@@ -66,14 +144,17 @@ export default function Home() {
   return (
     <LazyMotion features={domAnimation}>
       <div className="flex min-h-screen">
+        {/* Custom cursor effect */}
+        <CustomCursor />
+        
+        {/* Floating elements */}
+        <FloatingElements />
+        
         <Suspense fallback={<div className="w-64 md:w-72 bg-zinc-950/90 shadow-xl"></div>}>
           <Sidebar />
         </Suspense>
         <div className="flex-1 pl-64 md:pl-72 relative">
           <main className="min-h-screen" ref={containerRef}>
-            {/* Background effects */}
-            <div className="fixed inset-0 animated-gradient-bg color-shift-elegant opacity-20 pointer-events-none"></div>
-            
             {/* Content */}
             <div className="relative z-10">
               <Suspense fallback={<LoadingSkeleton />}>
