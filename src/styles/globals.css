@@ -19,9 +19,9 @@
 }
 
 .dark {
-  --foreground-rgb: 236, 237, 238;
-  --background-start-rgb: 12, 12, 14;
-  --background-end-rgb: 18, 18, 22;
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 0, 0, 0;
   
   /* Softer color palette for dark mode */
   --accent-purple: 192, 132, 252;
@@ -37,8 +37,8 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 10, 10, 10;
-    --background-end-rgb: 20, 20, 20;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
   }
 }
 

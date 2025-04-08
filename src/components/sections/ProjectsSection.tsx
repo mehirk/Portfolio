@@ -88,9 +88,9 @@ const ProjectCard = ({ title, description, tags, image, color, role, date }: Pro
         </motion.div>
       </div>
       
-      <div className="p-6 flex-1 flex flex-col z-10">
+      <div className="p-5 flex flex-col flex-1">
         <div className="flex justify-between items-start mb-2">
-          <h3 className="text-xl font-semibold text-white/90 text-readability-shadow">{title}</h3>
+          <h3 className="text-xl font-semibold text-white text-readability-shadow">{title}</h3>
           <span className="text-xs text-white/50">{date}</span>
         </div>
         <p className="text-sm text-white/60 mb-2">{role}</p>
@@ -151,7 +151,7 @@ const containerVariants = {
 export function ProjectsSection() {
   return (
     <section id="projects" className="py-20 md:py-32 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-indigo-950/5 to-black/0 pointer-events-none"></div>
+      <div className="absolute inset-0 bg-black pointer-events-none"></div>
       
       <div className="container mx-auto px-4 relative z-10">
         <motion.div
@@ -160,10 +160,8 @@ export function ProjectsSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-blue-300 to-indigo-300 animated-gradient-bg text-readability-shadow">
-              Featured Projects
-            </span>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white text-center">
+            Featured Projects
           </h2>
           <div className="h-1 w-24 mx-auto bg-gradient-to-r from-indigo-400/50 to-blue-400/50 rounded-full mb-12"></div>
           

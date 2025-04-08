@@ -39,8 +39,8 @@ export default function RootLayout({
       >
         <HydrationSuppressionProvider>
           <div className="relative min-h-screen flex flex-col">
-            <div className="fixed inset-0 bg-zinc-950 pointer-events-none -z-10"></div>
-            <div className="fixed inset-0 star-bg opacity-10 pointer-events-none -z-10"></div>
+            <div className="fixed inset-0 bg-black pointer-events-none -z-10"></div>
+            <div className="fixed inset-0 star-bg opacity-5 pointer-events-none -z-10"></div>
             {children}
           </div>
         </HydrationSuppressionProvider>

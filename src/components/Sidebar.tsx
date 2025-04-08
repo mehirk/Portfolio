@@ -92,7 +92,7 @@ const DesktopSidebar = memo(({ activeSection, handleNavClick }: {
   handleNavClick: (id: string) => void;
 }) => {
   return (
-    <div className="hidden md:flex w-64 fixed top-5 left-5 bottom-5 flex-col bg-zinc-900/80 backdrop-blur-md border border-zinc-800/50 rounded-2xl shadow-lg z-50 overflow-hidden">
+    <div className="hidden md:flex w-64 fixed top-5 left-5 bottom-5 flex-col bg-black/90 backdrop-blur-md border border-zinc-800/50 rounded-2xl shadow-lg z-50 overflow-hidden">
       <div className="p-6 flex flex-col items-center border-b border-zinc-800/50">
         <motion.div 
           whileHover={{ scale: 1.05 }}
@@ -118,7 +118,7 @@ const DesktopSidebar = memo(({ activeSection, handleNavClick }: {
                 variant="ghost"
                 className={`w-full justify-start px-3 py-2 relative ${
                   activeSection === item.id 
-                    ? 'text-white bg-zinc-800/60' 
+                    ? 'text-white bg-zinc-800/80' 
                     : 'text-zinc-400 hover:text-white hover:bg-zinc-800/30'
                 }`}
                 onClick={() => handleNavClick(item.id)}
@@ -152,7 +152,7 @@ const MobileNavbar = memo(({ activeSection, handleNavClick }: {
   activeSection: string;
   handleNavClick: (id: string) => void;
 }) => (
-  <div className="md:hidden fixed bottom-5 left-4 right-4 bg-zinc-900/80 backdrop-blur-md border border-zinc-800/50 rounded-full flex justify-around items-center py-3 px-3 z-50 shadow-lg">
+  <div className="md:hidden fixed bottom-5 left-4 right-4 bg-black/90 backdrop-blur-md border border-zinc-800/50 rounded-full flex justify-around items-center py-3 px-3 z-50 shadow-lg">
     {navItems.map((item) => (
       <button
         key={item.id}
