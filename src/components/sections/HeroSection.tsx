@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { AnimatedText } from '@/components/AnimatedText';
+import { HandwritingText } from '@/components/HandwritingText';
 
 interface HeroSectionProps {
   scrollY: number | { get: () => number; onChange: any };
@@ -109,12 +110,13 @@ export function HeroSection({ scrollY }: HeroSectionProps) {
             <div className="h-1 w-32 mx-auto bg-gradient-to-r from-indigo-400/70 via-blue-400/70 to-cyan-400/70 rounded-full glow-effect"></div>
           </motion.div>
           
-          <AnimatedText
-            text="Computer Science Student at Acadia University"
-            className="text-xl text-zinc-200 mb-10 leading-relaxed text-readability-shadow justify-center"
-            once={true}
-            delay={3}
-          />
+          <div className="text-xl text-zinc-200 mb-10 leading-relaxed text-readability-shadow text-center">
+            <HandwritingText
+              text="Computer Science Student at Acadia University"
+              speed={50}
+              delay={1000}
+            />
+          </div>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <motion.div

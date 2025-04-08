@@ -114,7 +114,7 @@ export function CustomCursor() {
     <>
       {/* Main cursor */}
       <motion.div
-        className="fixed top-0 left-0 w-6 h-6 rounded-full border-white border-2 pointer-events-none z-50"
+        className="fixed top-0 left-0 w-6 h-6 rounded-full border-white border-2 pointer-events-none z-[9999]"
         style={{
           x: cursor.x - 12,
           y: cursor.y - 12,
@@ -127,7 +127,7 @@ export function CustomCursor() {
       
       {/* Dot cursor */}
       <motion.div
-        className="fixed top-0 left-0 w-1 h-1 rounded-full bg-white pointer-events-none z-50"
+        className="fixed top-0 left-0 w-1 h-1 rounded-full bg-white pointer-events-none z-[9999]"
         style={{
           x: cursor.x - 2,
           y: cursor.y - 2,
