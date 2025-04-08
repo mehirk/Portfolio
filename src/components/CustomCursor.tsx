@@ -121,10 +121,7 @@ export function CustomCursor() {
         }}
         animate={getVariants()}
         transition={{
-          type: 'spring',
-          damping: 25,
-          stiffness: 300,
-          mass: 0.5,
+          duration: 0, // Remove delay/smoothing for instant cursor movement
         }}
       />
       
@@ -136,10 +133,7 @@ export function CustomCursor() {
           y: cursor.y - 2,
         }}
         transition={{
-          type: 'spring',
-          damping: 45,
-          stiffness: 400,
-          mass: 0.1,
+          duration: 0, // Remove delay/smoothing for instant cursor movement
         }}
       />
       

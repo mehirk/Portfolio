@@ -1,14 +1,89 @@
 'use client';
 
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { FadeInView } from '@/components/FadeInView';
 import { AnimatedText } from '@/components/AnimatedText';
 import { TiltCard } from '@/components/TiltCard';
 import { MagneticButton } from '@/components/MagneticButton';
 import { Button } from '@/components/ui/button';
 
+// Handwriting text effect
+const HandwritingText = () => {
+  return (
+    <div className="h-40 flex flex-col items-center justify-center">
+      <svg 
+        width="300" 
+        height="100" 
+        viewBox="0 0 300 100" 
+        className="overflow-visible"
+      >
+        <motion.path
+          d="M10,50 C20,30 30,10 50,20 C70,30 80,60 100,70 S120,50 140,40 S160,30 180,40 S200,60 220,70 S240,50 260,40 S280,50 290,60"
+          fill="transparent"
+          stroke="url(#gradient)"
+          strokeWidth="3"
+          strokeLinecap="round"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ 
+            duration: 3,
+            ease: "easeInOut",
+            repeat: Infinity,
+            repeatDelay: 1,
+            repeatType: "reverse"
+          }}
+        />
+        <defs>
+          <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#818cf8" />
+            <stop offset="100%" stopColor="#3b82f6" />
+          </linearGradient>
+        </defs>
+      </svg>
+      <div className="text-sm text-zinc-500 mt-4">Handwriting Effect</div>
+    </div>
+  );
+};
+
+// 3D Card Flip
+const FlipCard = () => {
+  const [isFlipped, setIsFlipped] = useState(false);
+  
+  return (
+    <div className="relative w-64 h-96 mx-auto perspective-1000">
+      <motion.div 
+        className="relative w-full h-full preserve-3d cursor-pointer"
+        animate={{ rotateY: isFlipped ? 180 : 0 }}
+        transition={{ duration: 0.6, type: "spring", stiffness: 200, damping: 20 }}
+        onClick={() => setIsFlipped(!isFlipped)}
+      >
+        <div className="absolute w-full h-full backface-hidden rounded-xl bg-gradient-to-br from-blue-600/30 to-indigo-600/30 border border-white/10 p-6 flex flex-col items-center justify-center">
+          <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mb-4">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M21 7L13 15L9 11L3 17M21 7H15M21 7V13" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+          <h3 className="text-xl font-semibold text-white mb-2">Front Side</h3>
+          <p className="text-sm text-white/70 text-center">Click to flip this card and see the other side.</p>
+        </div>
+        <div className="absolute w-full h-full backface-hidden rounded-xl bg-gradient-to-br from-purple-600/30 to-fuchsia-600/30 border border-white/10 p-6 flex flex-col items-center justify-center rotate-y-180">
+          <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mb-4">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 8L7 13H17L12 8Z" fill="white"/>
+              <path d="M12 16L17 11H7L12 16Z" fill="white"/>
+            </svg>
+          </div>
+          <h3 className="text-xl font-semibold text-white mb-2">Back Side</h3>
+          <p className="text-sm text-white/70 text-center">This is the back of the card. Click to flip back.</p>
+        </div>
+      </motion.div>
+    </div>
+  );
+};
+
 export function InteractionDemo() {
-  const [activeTab, setActiveTab] = useState<'tilt' | 'magnetic' | 'text'>('tilt');
+  const [activeTab, setActiveTab] = useState<'tilt' | 'magnetic' | 'text' | 'handwriting' | 'flip'>('tilt');
   
   return (
     <section id="interactions-demo" className="py-24 relative overflow-hidden">
@@ -42,6 +117,18 @@ export function InteractionDemo() {
             onClick={() => setActiveTab('text')}
           >
             Text Animations
+          </Button>
+          <Button 
+            variant={activeTab === 'handwriting' ? 'default' : 'outline'}
+            onClick={() => setActiveTab('handwriting')}
+          >
+            Handwriting
+          </Button>
+          <Button 
+            variant={activeTab === 'flip' ? 'default' : 'outline'}
+            onClick={() => setActiveTab('flip')}
+          >
+            3D Flip
           </Button>
         </div>
         
@@ -123,6 +210,24 @@ export function InteractionDemo() {
                 Scroll in and out of view to see the animations replay.
               </p>
             </div>
+          </FadeInView>
+        )}
+
+        {activeTab === 'handwriting' && (
+          <FadeInView className="flex flex-col items-center gap-8">
+            <HandwritingText />
+            <p className="text-zinc-500 mt-4">
+              Text animation that simulates handwriting.
+            </p>
+          </FadeInView>
+        )}
+
+        {activeTab === 'flip' && (
+          <FadeInView className="flex flex-col items-center gap-8">
+            <FlipCard />
+            <p className="text-zinc-500 mt-4">
+              Click the card to see the 3D flip animation.
+            </p>
           </FadeInView>
         )}
       </div>

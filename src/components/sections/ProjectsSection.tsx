@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { TiltCard } from '@/components/TiltCard';
+import { FlipCard } from '@/components/FlipCard';
 import { AnimatedText } from '@/components/AnimatedText';
 
 // Project interface
@@ -59,16 +59,10 @@ const ProjectCard = ({ title, description, tags, image, color, role, date }: Pro
     alert(`Live demo for ${title} project`);
   };
 
-  return (
-    <TiltCard 
-      className={`glass-card backdrop-blur-md h-full flex flex-col relative overflow-hidden group bg-gradient-to-br ${color} sleek-shadow`}
-      glareOpacity={0.1}
-      tiltFactor={7}
-      scale={1.01}
-    >
-      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-white/5 via-white/0 to-transparent glossy-effect"></div>
-      
-      <div className="h-48 relative overflow-hidden">
+  // Front content of the card
+  const frontContent = (
+    <div className="h-full">
+      <div className="relative w-full h-40 overflow-hidden">
         <img 
           src={image} 
           alt={title}
@@ -91,52 +85,86 @@ const ProjectCard = ({ title, description, tags, image, color, role, date }: Pro
         </motion.div>
       </div>
       
-      <div className="p-5 flex flex-col flex-1">
+      <div className="p-6">
         <div className="flex justify-between items-start mb-2">
           <h3 className="text-xl font-semibold text-white text-readability-shadow">{title}</h3>
           <span className="text-xs text-white/50">{date}</span>
         </div>
         <p className="text-sm text-white/60 mb-2">{role}</p>
-        <p className="text-zinc-300 mb-6 flex-1">{description}</p>
-        <div className="flex flex-wrap gap-2 mt-auto">
-          {tags.map((tag, index) => (
-            <span 
-              key={index} 
-              className="text-xs px-3 py-1 rounded-full bg-white/5 text-white/70 backdrop-blur-sm border border-white/5 hover:bg-white/10 transition-colors duration-300"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-        <div className="mt-6 pt-4 border-t border-white/5 flex justify-between">
-          <motion.a
-            href="#"
-            whileHover={{ scale: 1.05, x: 3 }}
-            whileTap={{ scale: 0.95 }}
-            className="text-sm text-white/60 hover:text-white/90 flex items-center group transition-colors duration-300"
-            onClick={handleViewDetails}
+        <p className="text-zinc-300 mb-6">{description.substring(0, 80)}...</p>
+        
+        <motion.div
+          className="absolute bottom-6 right-6"
+          whileHover={{ scale: 1.05 }}
+        >
+          <Button 
+            variant="ghost" 
+            className="text-sm px-3 py-1 rounded-full text-white/70 hover:text-white hover:bg-white/10"
           >
-            View Details
-            <svg className="w-4 h-4 ml-1 transform transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </motion.a>
-          
-          <motion.a
-            href="#"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="text-sm bg-white/5 hover:bg-white/10 px-3 py-1 rounded-full text-white/70 hover:text-white/90 flex items-center transition-colors duration-300"
-            onClick={handleLiveDemo}
-          >
-            Live Demo 
-            <svg className="w-4 h-4 ml-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M10 6H6C4.89543 6 4 6.89543 4 8V18C4 19.1046 4.89543 20 6 20H16C17.1046 20 18 19.1046 18 18V14M14 4H20M20 4V10M20 4L10 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </motion.a>
-        </div>
+            Flip for Details
+          </Button>
+        </motion.div>
       </div>
-    </TiltCard>
+    </div>
+  );
+
+  // Back content of the card
+  const backContent = (
+    <div className="p-6 h-full flex flex-col">
+      <h3 className="text-xl font-semibold text-white mb-3">{title}</h3>
+      <p className="text-zinc-300 mb-4">{description}</p>
+      
+      <div className="flex flex-wrap gap-2 mb-6">
+        {tags.map((tag, index) => (
+          <span 
+            key={index} 
+            className="text-xs px-3 py-1 rounded-full bg-white/5 text-white/70 backdrop-blur-sm border border-white/5 hover:bg-white/10 transition-colors duration-300"
+          >
+            {tag}
+          </span>
+        ))}
+      </div>
+      
+      <div className="mt-auto space-y-3">
+        <motion.a
+          href="#"
+          whileHover={{ scale: 1.05, x: 3 }}
+          whileTap={{ scale: 0.95 }}
+          className="text-sm text-white/60 hover:text-white/90 flex items-center group transition-colors duration-300"
+          onClick={handleViewDetails}
+        >
+          View Details
+          <svg className="w-4 h-4 ml-1 transform transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </motion.a>
+        
+        <motion.a
+          href="#"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="text-sm bg-white/5 hover:bg-white/10 px-3 py-1 rounded-full text-white/70 hover:text-white/90 flex items-center transition-colors duration-300"
+          onClick={handleLiveDemo}
+        >
+          Live Demo 
+          <svg className="w-4 h-4 ml-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 6H6C4.89543 6 4 6.89543 4 8V18C4 19.1046 4.89543 20 6 20H16C17.1046 20 18 19.1046 18 18V14M14 4H20M20 4V10M20 4L10 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </motion.a>
+      </div>
+    </div>
+  );
+
+  return (
+    <FlipCard 
+      frontContent={frontContent}
+      backContent={backContent}
+      className={`glass-card backdrop-blur-md h-full bg-gradient-to-br ${color} sleek-shadow`}
+      frontColor="bg-gradient-to-br from-zinc-900/90 to-zinc-800/90"
+      backColor="bg-gradient-to-br from-zinc-800/90 to-zinc-900/90"
+      width="100%"
+      height="400px"
+    />
   );
 };
 
