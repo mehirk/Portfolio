@@ -24,30 +24,14 @@ const LoadingSkeleton = () => (
 
 // Main Page Component
 export default function Home() {
-  const [scrollY, setScrollY] = useState(0);
   const [isMounted, setIsMounted] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollY } = useScroll();
   
-  // Set up scroll handler after component mounts
+  // Set mounted state after component mounts
   useEffect(() => {
     setIsMounted(true);
-    
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
-    
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
   }, []);
-  
-  // Create a simple MotionValue-like object
-  const scrollMotionValue = {
-    get: () => scrollY,
-    onChange: () => undefined  // Simple mock to match the interface
-  };
   
   // Avoid hydration issues by only rendering motion components on client
   if (!isMounted) {
@@ -77,7 +61,7 @@ export default function Home() {
             {/* Content */}
             <div className="relative z-10">
               <Suspense fallback={<LoadingSkeleton />}>
-                <HeroSection scrollY={scrollMotionValue} />
+                <HeroSection scrollY={scrollY} />
                 <AboutSection />
                 <SkillsSection />
                 <ProjectsSection />
