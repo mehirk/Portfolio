@@ -10,35 +10,43 @@ interface Project {
   tags: string[];
   image: string;
   color: string;
+  role: string;
+  date: string;
 }
 
 // Projects data
 const projectsData: Project[] = [
   {
-    title: "E-Commerce Platform",
-    description: "A full-featured online store with payment processing, product management, and customer profiles.",
-    tags: ['Next.js', 'Stripe', 'MongoDB'],
-    image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 300 200'%3E%3Crect width='300' height='200' fill='%232A2A2A'/%3E%3Cpath d='M150,60 L180,100 L150,140 L120,100 Z' fill='%23444'/%3E%3Ccircle cx='150' cy='100' r='20' fill='%23666'/%3E%3Ctext x='150' y='170' font-family='Arial' font-size='12' fill='%23999' text-anchor='middle'%3EE-Commerce Platform%3C/text%3E%3C/svg%3E",
-    color: "from-indigo-500/15 to-indigo-800/15"
+    title: "Study Link",
+    description: "A scalable academic platform enabling group discussions, file sharing, and real-time collaboration.",
+    tags: ['React 19', 'TypeScript', 'Express.js', 'PostgreSQL', 'Prisma ORM', 'Docker'],
+    image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 300 200'%3E%3Crect width='300' height='200' fill='%232A2A2A'/%3E%3Cpath d='M70,50 L230,50 L230,150 L70,150 Z' stroke='%23666' stroke-width='3' fill='none'/%3E%3Cpath d='M90,70 L210,70' stroke='%23999' stroke-width='2'/%3E%3Cpath d='M90,90 L210,90' stroke='%23999' stroke-width='2'/%3E%3Cpath d='M90,110 L170,110' stroke='%23999' stroke-width='2'/%3E%3Ctext x='150' y='170' font-family='Arial' font-size='12' fill='%23999' text-anchor='middle'%3EStudy Link%3C/text%3E%3C/svg%3E",
+    color: "from-indigo-500/15 to-indigo-800/15",
+    role: "Full-Stack Developer – Collaborative Project",
+    date: "Jan 2025 – Mar 2025"
   },
   {
-    title: "Social Media Dashboard",
-    description: "Analytics dashboard for social media management with real-time data visualization.",
-    tags: ['React', 'D3.js', 'Firebase'],
-    image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 300 200'%3E%3Crect width='300' height='200' fill='%232A2A2A'/%3E%3Crect x='50' y='50' width='60' height='100' fill='%23444'/%3E%3Crect x='120' y='70' width='60' height='80' fill='%23555'/%3E%3Crect x='190' y='40' width='60' height='110' fill='%23666'/%3E%3Ctext x='150' y='170' font-family='Arial' font-size='12' fill='%23999' text-anchor='middle'%3ESocial Media Dashboard%3C/text%3E%3C/svg%3E",
-    color: "from-blue-500/15 to-blue-800/15"
+    title: "Secura Staff App",
+    description: "Intuitive employee management system using Python with tkinter, cryptography.fernet, csv, and hashlib.",
+    tags: ['Python', 'tkinter', 'cryptography.fernet', 'CSV', 'hashlib'],
+    image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 300 200'%3E%3Crect width='300' height='200' fill='%232A2A2A'/%3E%3Cpath d='M90,50 L210,50 L230,70 L230,150 L70,150 L70,70 Z' stroke='%23666' stroke-width='3' fill='none'/%3E%3Cpath d='M210,50 L210,70 L230,70' stroke='%23666' stroke-width='3' fill='none'/%3E%3Cpath d='M120,100 L180,100' stroke='%23999' stroke-width='10' stroke-linecap='round'/%3E%3Ccircle cx='150' cy='80' r='15' stroke='%23999' stroke-width='2' fill='none'/%3E%3Ctext x='150' y='170' font-family='Arial' font-size='12' fill='%23999' text-anchor='middle'%3ESecura Staff App%3C/text%3E%3C/svg%3E",
+    color: "from-blue-500/15 to-blue-800/15",
+    role: "Lead Developer",
+    date: "July 2023 – Aug 2023"
   },
   {
-    title: "Task Management App",
-    description: "Collaborative task management tool with real-time updates and team communication features.",
-    tags: ['TypeScript', 'Socket.io', 'Express'],
-    image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 300 200'%3E%3Crect width='300' height='200' fill='%232A2A2A'/%3E%3Crect x='50' y='50' width='200' height='30' rx='5' fill='%23444'/%3E%3Crect x='50' y='90' width='200' height='30' rx='5' fill='%23555'/%3E%3Crect x='50' y='130' width='200' height='30' rx='5' fill='%23666'/%3E%3Ccircle cx='35' cy='65' r='10' fill='%23777'/%3E%3Ccircle cx='35' cy='105' r='10' fill='%23888'/%3E%3Ccircle cx='35' cy='145' r='10' fill='%23999'/%3E%3Ctext x='150' y='170' font-family='Arial' font-size='12' fill='%23999' text-anchor='middle'%3ETask Management App%3C/text%3E%3C/svg%3E",
-    color: "from-cyan-500/15 to-cyan-800/15"
+    title: "Flight Management System",
+    description: "Python-based flight management system with robust CSV storage and MySQL integration.",
+    tags: ['Python', 'MySQL', 'CSV'],
+    image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 300 200'%3E%3Crect width='300' height='200' fill='%232A2A2A'/%3E%3Cpath d='M60,70 L120,100 L240,100 M60,130 L120,100' stroke='%23999' stroke-width='3' fill='none'/%3E%3Cpath d='M120,80 L120,120 L140,110 L140,90 Z' fill='%23666'/%3E%3Ccircle cx='190' cy='100' r='40' stroke='%23777' stroke-width='3' stroke-dasharray='10,5' fill='none'/%3E%3Ctext x='150' y='170' font-family='Arial' font-size='12' fill='%23999' text-anchor='middle'%3EFlight Management System%3C/text%3E%3C/svg%3E",
+    color: "from-cyan-500/15 to-cyan-800/15",
+    role: "Lead Developer",
+    date: "Sept 2022 – Sept 2022"
   }
 ];
 
 // Project card component
-const ProjectCard = ({ title, description, tags, image, color }: Project) => {
+const ProjectCard = ({ title, description, tags, image, color, role, date }: Project) => {
   const handleViewDetails = (e: React.MouseEvent) => {
     e.preventDefault();
     alert(`View details for ${title} project`);
@@ -81,7 +89,11 @@ const ProjectCard = ({ title, description, tags, image, color }: Project) => {
       </div>
       
       <div className="p-6 flex-1 flex flex-col z-10">
-        <h3 className="text-xl font-semibold mb-2 text-white/90 text-readability-shadow">{title}</h3>
+        <div className="flex justify-between items-start mb-2">
+          <h3 className="text-xl font-semibold text-white/90 text-readability-shadow">{title}</h3>
+          <span className="text-xs text-white/50">{date}</span>
+        </div>
+        <p className="text-sm text-white/60 mb-2">{role}</p>
         <p className="text-zinc-300 mb-6 flex-1">{description}</p>
         <div className="flex flex-wrap gap-2 mt-auto">
           {tags.map((tag, index) => (
@@ -176,6 +188,8 @@ export function ProjectsSection() {
                   tags={project.tags}
                   image={project.image}
                   color={project.color}
+                  role={project.role}
+                  date={project.date}
                 />
               </motion.div>
             ))}

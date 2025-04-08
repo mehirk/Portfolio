@@ -1,4 +1,3 @@
-
 'use client';
 
 import { motion } from 'framer-motion';
@@ -103,7 +102,7 @@ export function HeroSection({ scrollY }: HeroSectionProps) {
           >
             <h1 className="text-5xl md:text-7xl font-bold mb-2">
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-blue-400 to-cyan-300 animated-gradient-bg text-readability-shadow">
-                Mehir Portfolio
+                Mehir Kumar
               </span>
             </h1>
             <div className="h-1 w-32 mx-auto bg-gradient-to-r from-indigo-400/70 via-blue-400/70 to-cyan-400/70 rounded-full glow-effect"></div>
@@ -114,7 +113,7 @@ export function HeroSection({ scrollY }: HeroSectionProps) {
             transition={{ delay: 0.3, duration: 0.5 }}
             className="text-xl text-zinc-200 mb-10 leading-relaxed text-readability-shadow"
           >
-            Creating exceptional digital experiences with elegance and precision.
+            Computer Science Student at Acadia University
           </motion.p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <motion.div

@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Code, Layers, Monitor, Server } from 'lucide-react';
+import { Code, Layers, Monitor, Server, Database } from 'lucide-react';
 
 // Skill interface
 interface Skill {
@@ -18,7 +18,7 @@ const skillsData: Skill[] = [
   {
     icon: <Monitor className="h-8 w-8" />,
     title: 'Frontend',
-    skills: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
+    skills: ['React', 'Next.js', 'TypeScript', 'JavaScript', 'TailwindCSS', 'Shadcn UI', 'HTML', 'CSS'],
     color: 'text-emerald-400',
     borderColor: 'border-emerald-500/10',
     iconBgColor: 'bg-emerald-500/5'
@@ -26,23 +26,23 @@ const skillsData: Skill[] = [
   {
     icon: <Server className="h-8 w-8" />,
     title: 'Backend',
-    skills: ['Node.js', 'Express', 'MongoDB', 'Firebase', 'AWS'],
+    skills: ['Node.js', 'Express.js', 'REST API Development', 'Prisma ORM', 'Next Auth(Auth.js)', 'Better-Auth'],
     color: 'text-blue-400',
     borderColor: 'border-blue-500/10',
     iconBgColor: 'bg-blue-500/5'
   },
   {
-    icon: <Code className="h-8 w-8" />,
-    title: 'Languages',
-    skills: ['JavaScript', 'TypeScript', 'Python', 'HTML/CSS', 'SQL'],
+    icon: <Database className="h-8 w-8" />,
+    title: 'Database & Languages',
+    skills: ['PostgreSQL', 'MySQL', 'MongoDB', 'Python', 'Java', 'SQL', 'TypeScript', 'JavaScript'],
     color: 'text-indigo-400',
     borderColor: 'border-indigo-500/10',
     iconBgColor: 'bg-indigo-500/5'
   },
   {
     icon: <Layers className="h-8 w-8" />,
-    title: 'Tools',
-    skills: ['Git', 'Docker', 'Figma', 'VS Code', 'Jest'],
+    title: 'Tools & Others',
+    skills: ['Git', 'Docker', 'Postman', 'Github Projects', 'NumPy', 'Pandas', 'tkinter', 'IT Asset Management'],
     color: 'text-amber-400',
     borderColor: 'border-amber-500/10',
     iconBgColor: 'bg-amber-500/5'

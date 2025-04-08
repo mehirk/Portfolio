@@ -11,7 +11,6 @@ const HeroSection = dynamic(() => import('@/components/sections/HeroSection').th
 const AboutSection = dynamic(() => import('@/components/sections/AboutSection').then(mod => ({ default: mod.AboutSection })), { ssr: false });
 const SkillsSection = dynamic(() => import('@/components/sections/SkillsSection').then(mod => ({ default: mod.SkillsSection })), { ssr: false });
 const ProjectsSection = dynamic(() => import('@/components/sections/ProjectsSection').then(mod => ({ default: mod.ProjectsSection })), { ssr: false });
-const TestimonialsSection = dynamic(() => import('@/components/sections/TestimonialsSection').then(mod => ({ default: mod.TestimonialsSection })), { ssr: false });
 const ContactSection = dynamic(() => import('@/components/sections/ContactSection').then(mod => ({ default: mod.ContactSection })), { ssr: false });
 
 // Loading fallback component
@@ -82,7 +81,6 @@ export default function Home() {
                 <AboutSection />
                 <SkillsSection />
                 <ProjectsSection />
-                <TestimonialsSection />
                 <ContactSection />
                 <Footer />
               </Suspense>
