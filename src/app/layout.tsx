@@ -28,7 +28,7 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <script src="https://unpkg.com/react-scan/dist/auto.global.js" />
+        {/* <script src="https://unpkg.com/react-scan/dist/auto.global.js" /> */}
       </head>
       <body className={`${inter.variable} font-sans antialiased`}>
         <div className="relative min-h-screen flex flex-col">
