@@ -2,6 +2,12 @@ import { AnimatedBackground } from "@/components/AnimatedBackground";
 import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { Inter, Raleway } from "next/font/google";
+import dynamic from "next/dynamic";
+
+// Dynamically import the cursor component with no SSR to avoid hydration issues
+const CustomCursor = dynamic(() => import("@/components/CustomCursor"), {
+  ssr: false,
+});
 
 // Optimize font loading
 const inter = Inter({
@@ -34,6 +40,7 @@ export default function RootLayout({
         <div className="relative min-h-screen flex flex-col">
           <AnimatedBackground />
           {children}
+          <CustomCursor />
         </div>
       </body>
     </html>

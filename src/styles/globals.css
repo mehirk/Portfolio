@@ -2,6 +2,89 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Custom cursor styles - Torch design */
+.cursor {
+  display: none;
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  top: 0;
+  left: 0;
+  position: fixed;
+  will-change: transform;
+  z-index: 9999;
+}
+
+.cursor-outer-circle {
+  position: absolute;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.1);
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s;
+  backdrop-filter: blur(1px);
+  box-shadow: 0 0 15px 3px rgba(255, 255, 255, 0.2);
+  animation: torch-breathe 3s ease-in-out infinite;
+}
+
+.cursor-middle-circle {
+  position: absolute;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.3);
+}
+
+.cursor-dot {
+  position: absolute;
+  border-radius: 50%;
+  width: 8px;
+  height: 8px;
+  background: rgba(255, 255, 255, 1);
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.7);
+  animation: torch-dot-breathe 2s ease-in-out infinite;
+}
+
+.cursor.cursor--initialized {
+  display: block;
+}
+
+.cursor.cursor--off-screen {
+  opacity: 0;
+}
+
+.cursor.cursor--focused .cursor-outer-circle {
+  width: 80px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.3);
+}
+
+.cursor.cursor--focused .cursor-middle-circle {
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.cursor.cursor--focused .cursor-dot {
+  width: 10px;
+  height: 10px;
+}
+
+/* Ensure regular cursor is hidden when custom cursor is active */
+@media (pointer: fine) {
+  html.cursor-active,
+  html.cursor-active * {
+    cursor: none !important;
+  }
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 250, 250, 250;
@@ -68,6 +151,18 @@ body {
 @keyframes shimmer {
   0% { background-position: -100% 0; }
   100% { background-position: 200% 0; }
+}
+
+@keyframes torch-breathe {
+  0% { opacity: 0.8; box-shadow: 0 0 15px 3px rgba(255, 255, 255, 0.2); }
+  50% { opacity: 1; box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.3); }
+  100% { opacity: 0.8; box-shadow: 0 0 15px 3px rgba(255, 255, 255, 0.2); }
+}
+
+@keyframes torch-dot-breathe {
+  0% { box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.7); }
+  50% { box-shadow: 0 0 12px 3px rgba(255, 255, 255, 0.9); }
+  100% { box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.7); }
 }
 
 @layer components {
