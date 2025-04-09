@@ -1,33 +1,21 @@
-import '@/styles/globals.css';
-import type { Metadata } from 'next';
-import { Inter, Raleway } from 'next/font/google';
-import { HydrationSuppressionProvider } from '@/components/HydrationSuppressionProvider';
-import dynamic from 'next/dynamic';
-
-// Dynamically import components with no SSR to avoid hydration issues
-const AnimatedBackground = dynamic(
-  () => import('@/components/AnimatedBackground').then(mod => ({ default: mod.AnimatedBackground })), 
-  { ssr: false }
-);
+import { AnimatedBackground } from "@/components/AnimatedBackground";
+import "@/styles/globals.css";
+import type { Metadata } from "next";
+import { Inter, Raleway } from "next/font/google";
 
 // Optimize font loading
-const inter = Inter({ 
-  subsets: ['latin'], 
-  variable: '--font-inter',
-  display: 'swap',
-});
-
-const raleway = Raleway({
-  subsets: ['latin'],
-  variable: '--font-raleway',
-  display: 'swap',
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
   title: "Mehir Kumar | Portfolio",
-  description: 'Professional portfolio showcasing skills, projects, and experience of Mehir Kumar, a Computer Science student at Acadia University',
+  description:
+    "Professional portfolio showcasing skills, projects, and experience of Mehir Kumar, a Computer Science student at Acadia University",
   icons: {
-    icon: '/logo/logo.svg'
+    icon: "/logo/logo.svg",
   },
 };
 
@@ -37,21 +25,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark scroll-smooth">
+    <html lang="en" className="dark">
       <head>
-        <link rel="icon" href="/logo/logo.svg" sizes="any" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script src="https://unpkg.com/react-scan/dist/auto.global.js" />
       </head>
-      <body 
-        className={`${inter.variable} ${raleway.variable} font-sans antialiased`} 
-        suppressHydrationWarning
-      >
-        <HydrationSuppressionProvider>
-          <div className="relative min-h-screen flex flex-col">
-            <AnimatedBackground />
-            {children}
-          </div>
-        </HydrationSuppressionProvider>
+      <body className={`${inter.variable} font-sans antialiased`}>
+        <div className="relative min-h-screen flex flex-col">
+          <AnimatedBackground />
+          {children}
+        </div>
       </body>
     </html>
   );
-} 
+}
