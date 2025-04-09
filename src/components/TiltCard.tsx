@@ -3,6 +3,7 @@
 import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { useDeviceDetect, usePrefersReducedMotion } from '@/lib/device-utils';
 
 interface TiltCardProps {
   children: React.ReactNode;
@@ -27,9 +28,16 @@ export function TiltCard({
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const [glarePosition, setGlarePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
+  
+  // Use device detection hooks
+  const { isMobile } = useDeviceDetect();
+  const prefersReducedMotion = usePrefersReducedMotion();
+  
+  // Determine if effects should be disabled
+  const shouldDisableEffects = isMobile || prefersReducedMotion;
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
+    if (!cardRef.current || shouldDisableEffects) return;
     
     // Get the card dimensions and position
     const rect = cardRef.current.getBoundingClientRect();
@@ -52,6 +60,7 @@ export function TiltCard({
   };
 
   const handleMouseEnter = () => {
+    if (shouldDisableEffects) return;
     setIsHovering(true);
   };
 
@@ -73,9 +82,9 @@ export function TiltCard({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       animate={{
-        rotateX: tilt.x,
-        rotateY: tilt.y,
-        scale: isHovering ? scale : 1,
+        rotateX: shouldDisableEffects ? 0 : tilt.x,
+        rotateY: shouldDisableEffects ? 0 : tilt.y,
+        scale: (isHovering && !shouldDisableEffects) ? scale : 1,
       }}
       transition={{
         type: "spring",
@@ -87,8 +96,8 @@ export function TiltCard({
       {/* Main content */}
       {children}
       
-      {/* Glare effect */}
-      {glareEnabled && (
+      {/* Glare effect - disabled when effects should be disabled */}
+      {(glareEnabled && !shouldDisableEffects) && (
         <motion.div
           className="absolute inset-0 pointer-events-none z-10"
           style={{
@@ -102,4 +111,4 @@ export function TiltCard({
       )}
     </motion.div>
   );
-} 
+}

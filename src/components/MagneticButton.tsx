@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
@@ -39,9 +39,25 @@ export function MagneticButton({
   const contentY = useTransform(ySpring, (value) => value * 0.5);
   
   const [isHovering, setIsHovering] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  
+  // Detect if device is mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    // Check on initial load
+    checkMobile();
+    
+    // Check on resize
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
   
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!buttonRef.current) return;
+    if (!buttonRef.current || isMobile) return;
     
     const rect = buttonRef.current.getBoundingClientRect();
     
@@ -102,20 +118,20 @@ export function MagneticButton({
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       onMouseEnter={handleMouseEnter}
-      animate={{ scale: isHovering ? scale : 1 }}
+      animate={{ scale: (isHovering && !isMobile) ? scale : 1 }}
       transition={{ scale: { type: "spring", damping: 15, stiffness: 300 } }}
       onClick={handleClick}
       style={{
-        x: xSpring,
-        y: ySpring,
+        x: isMobile ? 0 : xSpring,
+        y: isMobile ? 0 : ySpring,
       }}
     >
       {href ? (
         <a href={href} className="block outline-none">
           <motion.div
             style={{
-              x: contentX,
-              y: contentY,
+              x: isMobile ? 0 : contentX,
+              y: isMobile ? 0 : contentY,
             }}
           >
             {children}
@@ -125,8 +141,8 @@ export function MagneticButton({
         <button type="button" className="block outline-none">
           <motion.div
             style={{
-              x: contentX,
-              y: contentY,
+              x: isMobile ? 0 : contentX,
+              y: isMobile ? 0 : contentY,
             }}
           >
             {children}

@@ -23,8 +23,10 @@ const ProjectsSection = dynamic(() => import('@/components/sections/ProjectsSect
 const ContactSection = dynamic(() => import('@/components/sections/ContactSection').then(mod => ({ default: mod.ContactSection })), { 
   ssr: false 
 });
+// Interactive demo - conditionally loaded on mobile for performance
 const InteractionDemo = dynamic(() => import('@/components/sections/InteractionDemo').then(mod => ({ default: mod.InteractionDemo })), { 
-  ssr: false 
+  ssr: false,
+  loading: () => <div className="py-20 md:py-32"><div className="container mx-auto px-4 text-center text-zinc-500">Loading interactive components...</div></div>
 });
 
 // Loading fallback component
@@ -39,13 +41,44 @@ const LoadingSkeleton = () => (
 // Main Page Component
 export default function Home() {
   const [isMounted, setIsMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [shouldLoadInteractive, setShouldLoadInteractive] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollY } = useScroll();
   
   // Set mounted state after component mounts to avoid hydration issues
   useEffect(() => {
     setIsMounted(true);
+    
+    // Detect if device is mobile
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    // Check on initial load
+    checkMobile();
+    
+    // Check on resize
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
+  
+  // Delayed loading of interactive components on mobile
+  // This ensures the core content loads first
+  useEffect(() => {
+    if (isMobile) {
+      // On mobile, delay loading interactive components
+      const timer = setTimeout(() => {
+        setShouldLoadInteractive(true);
+      }, 2000); // 2-second delay
+      
+      return () => clearTimeout(timer);
+    } else {
+      // On desktop, load immediately
+      setShouldLoadInteractive(true);
+    }
+  }, [isMobile]);
   
   // Avoid hydration issues by only rendering motion components on client
   if (!isMounted) {
@@ -75,7 +108,10 @@ export default function Home() {
               <AboutSection />
               <SkillsSection />
               <ProjectsSection />
-              <InteractionDemo />
+              {/* Only render interactive demo if it should be loaded */}
+              {shouldLoadInteractive && (
+                <InteractionDemo />
+              )}
               <ContactSection />
               <Footer />
             </Suspense>
